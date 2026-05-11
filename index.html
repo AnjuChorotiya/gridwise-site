@@ -1,0 +1,1226 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Gridwise â€” Product UI for SaaS & AI Startups</title>
+<meta name="description" content="Gridwise designs dashboards, product UI, and design systems for early-stage SaaS and AI startups. Shipped in 2-week sprints." />
+<meta property="og:title" content="Gridwise â€” Product UI for SaaS & AI Startups" />
+<meta property="og:description" content="We design dashboards, product interfaces, and design systems for early-stage SaaS and AI startups. Shipped in 2-week sprints." />
+<meta property="og:type" content="website" />
+<meta property="og:url" content="https://gridwisedesigns.com" />
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='6' fill='%23FFD60A'/%3E%3Cpath d='M9 9h6v6H9zM17 9h6v6h-6zM9 17h6v6H9zM17 17h6v6h-6z' fill='%230A0A0A'/%3E%3C/svg%3E" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=Inter:wght@400;500;600;700;800;900&family=Space+Grotesk:wght@500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+<script src="https://cdn.tailwindcss.com"></script>
+<script>
+  tailwind.config = {
+    theme: {
+      extend: {
+        colors: {
+          ink: { 950: '#070707', 900: '#0A0A0A', 800: '#111111', 700: '#161616', 600: '#1F1F1F', 500: '#2A2A2A' },
+          bone: { 50: '#FAFAFA', 100: '#E5E5E5', 200: '#A1A1A1', 300: '#737373', 400: '#525252' },
+          brand: { yellow: '#FFD60A', yellowHover: '#FFC700', yellowMuted: '#3A3000' }
+        },
+        fontFamily: {
+          sans: ['Inter', 'system-ui', 'sans-serif'],
+          display: ['"Space Grotesk"', 'Inter', 'sans-serif'],
+          serif: ['"DM Serif Display"', '"Cormorant Garamond"', 'serif'],
+          mono: ['"JetBrains Mono"', 'ui-monospace', 'monospace']
+        }
+      }
+    }
+  };
+</script>
+<style>
+  html { scroll-behavior: smooth; }
+  body {
+    background: #0A0A0A;
+    color: #FAFAFA;
+    font-family: 'Inter', system-ui, sans-serif;
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+  }
+  .grid-bg {
+    background-image:
+      linear-gradient(to right, rgba(255,255,255,0.04) 1px, transparent 1px),
+      linear-gradient(to bottom, rgba(255,255,255,0.04) 1px, transparent 1px);
+    background-size: 56px 56px;
+  }
+  .grid-bg-fade {
+    -webkit-mask-image:
+      linear-gradient(to right, transparent 0%, #000 18%, #000 82%, transparent 100%),
+      linear-gradient(to bottom, #000 0%, #000 60%, transparent 100%);
+    -webkit-mask-composite: source-in;
+            mask-image:
+      linear-gradient(to right, transparent 0%, #000 18%, #000 82%, transparent 100%),
+      linear-gradient(to bottom, #000 0%, #000 60%, transparent 100%);
+            mask-composite: intersect;
+  }
+  .glow-yellow {
+    box-shadow: 0 0 0 1px rgba(255,214,10,0.25), 0 20px 80px -20px rgba(255,214,10,0.35);
+  }
+  .text-gradient {
+    background: linear-gradient(180deg, #FAFAFA 0%, #A1A1A1 100%);
+    -webkit-background-clip: text; background-clip: text; color: transparent;
+  }
+  .ticker {
+    animation: ticker 30s linear infinite;
+  }
+  @keyframes ticker { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+  .blink { animation: blink 1.1s steps(2, jump-none) infinite; }
+  @keyframes blink { 50% { opacity: 0.2; } }
+  /* Skeleton bars */
+  .bar { background: linear-gradient(90deg, #1F1F1F 0%, #2A2A2A 50%, #1F1F1F 100%); background-size: 200% 100%; animation: shimmer 2.4s linear infinite; }
+  @keyframes shimmer { 0% { background-position: 0% 0; } 100% { background-position: -200% 0; } }
+  details[open] summary .chev { transform: rotate(45deg); }
+  summary::-webkit-details-marker { display: none; }
+  summary { list-style: none; }
+  /* Tabs */
+  .tab-btn { color: #A1A1A1; position: relative; overflow: hidden; }
+  .tab-btn:hover { color: #FAFAFA; }
+  .tab-btn[aria-selected="true"] { color: #FAFAFA; }
+  .tab-btn::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(to top, rgba(255,214,10,0.28) 0%, rgba(255,214,10,0.10) 35%, rgba(255,214,10,0) 75%);
+    opacity: 0;
+    transition: opacity .3s ease;
+    pointer-events: none;
+  }
+  .tab-btn[aria-selected="true"]::before { opacity: 1; }
+  .tab-btn .tab-indicator { opacity: 0; transition: opacity .25s ease; z-index: 1; }
+  .tab-btn[aria-selected="true"] .tab-indicator { opacity: 1; }
+  .tab-btn > span { position: relative; z-index: 1; }
+  /* 3D tilted dashboard */
+  .tilt-wrap { perspective: 2400px; perspective-origin: 50% 0%; }
+  .tilt-card {
+    transform-origin: 50% 0%;
+    transition: transform .5s ease;
+  }
+  @media (min-width: 768px) {
+    .tilt-card { transform: rotateX(14deg) rotateY(-7deg) rotateZ(-1deg); }
+    .tilt-card:hover { transform: rotateX(8deg) rotateY(-4deg) rotateZ(0deg); }
+  }
+  /* Scroll reveal */
+  .reveal {
+    opacity: 0;
+    transform: translateY(28px);
+    transition: opacity .8s cubic-bezier(.16,1,.3,1), transform .8s cubic-bezier(.16,1,.3,1);
+    will-change: opacity, transform;
+  }
+  .reveal.in { opacity: 1; transform: none; }
+  /* Cursor spotlight */
+  .spotlight { position: relative; }
+  .spotlight::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    background: radial-gradient(420px circle at var(--mx, 50%) var(--my, 30%), rgba(255,214,10,0.10), transparent 60%);
+    opacity: 0;
+    transition: opacity .35s ease;
+    z-index: 1;
+  }
+  .spotlight.is-active::after { opacity: 1; }
+  .spotlight > * { position: relative; z-index: 2; }
+  /* Magnetic */
+  .magnetic { transition: transform .25s cubic-bezier(.16,1,.3,1), background-color .2s ease, color .2s ease; }
+  /* Cursor-aware card highlight */
+  .card-glow { position: relative; isolation: isolate; }
+  .card-glow::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    background: radial-gradient(220px circle at var(--cx, 50%) var(--cy, 50%), rgba(255,214,10,0.10), transparent 70%);
+    opacity: 0;
+    transition: opacity .3s ease;
+    pointer-events: none;
+    z-index: 0;
+  }
+  .card-glow:hover::before { opacity: 1; }
+  /* Animated underline for inline links */
+  .link-underline { position: relative; }
+  .link-underline::after {
+    content: "";
+    position: absolute;
+    left: 0; right: 0; bottom: -2px;
+    height: 1px;
+    background: currentColor;
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform .35s cubic-bezier(.16,1,.3,1);
+  }
+  .link-underline:hover::after { transform: scaleX(1); }
+  /* Robot mascot */
+  @keyframes robot-wobble {
+    0%, 100% { transform: rotate(-4deg) translateY(0); }
+    50%      { transform: rotate(5deg) translateY(-2px); }
+  }
+  @keyframes antenna-blink {
+    0%, 70%, 100% { opacity: 1; }
+    80%, 90%      { opacity: 0.25; }
+  }
+  .robot-wobble { animation: robot-wobble 2.4s ease-in-out infinite; transform-origin: 50% 95%; }
+  .robot-wobble .antenna { animation: antenna-blink 2.4s ease-in-out infinite; }
+  /* Respect reduced motion */
+  @media (prefers-reduced-motion: reduce) {
+    .reveal { opacity: 1; transform: none; transition: none; }
+    .spotlight::after, .card-glow::before { display: none; }
+    .magnetic { transition: none; }
+    .ticker { animation: none; }
+    .blink { animation: none; }
+    .bar { animation: none; }
+    html { scroll-behavior: auto; }
+  }
+  .icon-tile { transition: transform .3s ease, border-color .3s ease, color .3s ease; }
+  .icon-tile:hover { transform: translateY(-3px); border-color: #FFD60A; color: #FFD60A; }
+  .flow-line {
+    background-image: linear-gradient(to bottom, rgba(255,214,10,0.5) 0%, rgba(255,214,10,0) 100%);
+  }
+</style>
+</head>
+<body class="bg-ink-900 text-bone-50">
+
+<!-- Top utility bar -->
+<div class="border-b border-ink-600 bg-ink-950/80 backdrop-blur-md">
+  <div class="max-w-7xl mx-auto px-6 py-2 flex items-center justify-between text-xs font-mono text-bone-200">
+    <span>Now booking sprints for Q3 — 2 slots remaining</span>
+    <span class="hidden md:block">v.2026 Â· Built for SaaS &amp; AI startups</span>
+  </div>
+</div>
+
+<!-- NAV -->
+<header class="sticky top-0 z-40 bg-ink-900/85 backdrop-blur-md border-b border-ink-600">
+  <div class="max-w-7xl mx-auto px-6 h-16 flex items-center justify-between">
+    <a href="#" class="flex items-center gap-2.5 group">
+      <span class="w-8 h-8 rounded-md bg-brand-yellow grid grid-cols-2 grid-rows-2 gap-[3px] p-1.5">
+        <span class="bg-ink-900 rounded-[2px]"></span>
+        <span class="bg-ink-900 rounded-[2px]"></span>
+        <span class="bg-ink-900 rounded-[2px]"></span>
+        <span class="bg-ink-900 rounded-[2px]"></span>
+      </span>
+      <span class="font-display font-bold text-lg tracking-tight">Gridwise</span>
+    </a>
+    <nav class="hidden md:flex items-center gap-8 text-sm text-bone-100">
+      <a href="#services" class="hover:text-brand-yellow transition">Services</a>
+      <a href="#built-for" class="hover:text-brand-yellow transition">Built for</a>
+      <a href="#process" class="hover:text-brand-yellow transition">Process</a>
+      <a href="#faq" class="hover:text-brand-yellow transition">FAQ</a>
+    </nav>
+    <a href="#contact" class="px-5 py-2 rounded-full bg-brand-yellow text-ink-900 font-semibold text-sm hover:bg-brand-yellowHover transition flex items-center gap-1.5">
+      Book a call
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 5l7 7-7 7"/></svg>
+    </a>
+  </div>
+</header>
+
+<!-- HERO -->
+<section class="relative overflow-hidden" data-spotlight>
+  <div class="absolute inset-x-0 top-0 h-[460px] grid-bg grid-bg-fade pointer-events-none"></div>
+  <div class="absolute inset-x-0 top-0 h-[600px] bg-[radial-gradient(ellipse_at_top,rgba(255,214,10,0.18),transparent_60%)] pointer-events-none"></div>
+  <div class="relative max-w-7xl mx-auto px-6 pt-20 md:pt-28">
+    <div class="flex flex-col items-start max-w-4xl">
+      <a href="#work" class="flex items-center gap-3 group">
+        <span class="w-9 h-9 rounded-full bg-ink-700 border border-ink-500 grid place-items-center group-hover:border-brand-yellow transition shrink-0">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="#FAFAFA"><path d="M13 2 3 14h7l-1 8 11-12h-8l1-8Z"/></svg>
+        </span>
+        <span class="leading-tight">
+          <span class="block text-sm text-bone-50 font-semibold">50+ AI &amp; SaaS founders</span>
+          <span class="block text-xs text-bone-200 mt-0.5">Read Our <span class="underline underline-offset-2 group-hover:text-brand-yellow transition">Success Stories</span></span>
+        </span>
+      </a>
+      <h1 class="mt-7 font-display font-bold text-4xl md:text-6xl lg:text-7xl tracking-[-0.04em] leading-[1.02]">
+        <span class="text-bone-50">Product UI</span><br/>
+        <span class="text-bone-50 whitespace-nowrap">that actually <span class="text-brand-yellow">converts.</span></span>
+      </h1>
+      <p class="mt-8 text-base text-bone-200 max-w-2xl leading-relaxed">
+        Gridwise designs dashboards, product interfaces, and design systems for early-stage <span class="text-bone-50 font-medium">SaaS and AI startups</span> â€” shipped in 2-week sprints, not 6-month engagements.
+      </p>
+      <div class="mt-10 flex items-center gap-4 text-sm">
+        <span class="w-10 h-10 rounded-full overflow-hidden border-2 border-ink-700 shrink-0">
+          <img src="photo3.jpeg" alt="Founder portrait" class="w-full h-full object-cover" />
+        </span>
+        <span class="leading-tight">
+          <span class="block text-bone-50 font-semibold">2Ã— Faster than On Average</span>
+          <span class="block text-bone-300">IIT Roorkee Alumni</span>
+        </span>
+        <span class="text-bone-400 mx-2">/</span>
+        <span class="flex items-center gap-1.5 text-bone-50 font-semibold">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="#FFD60A"><polygon points="12,2 15,8.5 22,9.3 17,14 18.2,21 12,17.8 5.8,21 7,14 2,9.3 9,8.5"/></svg>
+          5.0
+        </span>
+      </div>
+      <div class="mt-10 flex flex-col sm:flex-row gap-3">
+        <a href="#contact" class="px-6 py-3.5 rounded-full bg-brand-yellow text-ink-900 font-semibold hover:bg-brand-yellowHover transition flex items-center justify-center gap-2 group">
+          Start a sprint
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="group-hover:translate-x-0.5 transition"><path d="M5 12h14M13 5l7 7-7 7"/></svg>
+        </a>
+        <a href="#process" class="px-6 py-3.5 rounded-full border border-ink-500 hover:border-brand-yellow hover:text-brand-yellow font-semibold transition flex items-center justify-center gap-2">
+          See our process
+        </a>
+      </div>
+    </div>
+
+    <!-- Hero mock dashboard -->
+    <div class="mt-24 md:mt-32 relative">
+      <div class="rounded-t-2xl border border-b-0 border-ink-600 bg-ink-800 overflow-hidden shadow-[0_-40px_120px_-30px_rgba(255,214,10,0.18),0_-20px_60px_rgba(0,0,0,0.5)]">
+
+        <!-- Browser bar -->
+        <div class="flex items-center gap-1.5 px-4 py-3 border-b border-ink-600 bg-ink-700">
+          <span class="w-2.5 h-2.5 rounded-full bg-ink-500"></span>
+          <span class="w-2.5 h-2.5 rounded-full bg-ink-500"></span>
+          <span class="w-2.5 h-2.5 rounded-full bg-ink-500"></span>
+          <div class="ml-3 px-3 py-1 rounded-md bg-ink-800 text-xs font-mono text-bone-200 hidden md:flex items-center gap-2 border border-ink-500">
+            <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+            app.gridwise.client / workspace
+          </div>
+          <span class="ml-auto text-[10px] font-mono text-bone-300 hidden md:inline">7 days left of your free trial</span>
+          <span class="ml-3 px-3 py-1 rounded-md bg-brand-yellow text-ink-900 text-xs font-bold flex items-center gap-1.5">
+            <svg width="10" height="10" viewBox="0 0 24 24" fill="currentColor"><path d="M13 2 3 14h7l-1 8 11-12h-8l1-8Z"/></svg>
+            Upgrade Pro
+          </span>
+        </div>
+
+        <div class="flex">
+          <!-- Sidebar -->
+          <aside class="w-12 md:w-14 border-r border-ink-600 bg-ink-800 flex flex-col items-center py-4 gap-3">
+            <span class="w-7 h-7 rounded bg-brand-yellow grid place-items-center">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="#0A0A0A"><rect x="4" y="4" width="6" height="6" rx="1"/><rect x="14" y="4" width="6" height="6" rx="1"/><rect x="4" y="14" width="6" height="6" rx="1"/><rect x="14" y="14" width="6" height="6" rx="1"/></svg>
+            </span>
+            <span class="w-7 h-7 rounded bg-ink-700 grid place-items-center"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#A1A1A1" stroke-width="2"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3v18"/></svg></span>
+            <span class="w-7 h-7 rounded bg-ink-700 grid place-items-center"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#A1A1A1" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M9 3v18"/></svg></span>
+            <span class="w-7 h-7 rounded bg-ink-700 grid place-items-center"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#A1A1A1" stroke-width="2"><polyline points="3 17 9 11 13 15 21 7"/><polyline points="14 7 21 7 21 14"/></svg></span>
+            <span class="w-7 h-7 rounded bg-ink-700 grid place-items-center"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#A1A1A1" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 1 1-4 0v-.09a1.65 1.65 0 0 0-1-1.51 1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 1 1 0-4h.09a1.65 1.65 0 0 0 1.51-1 1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06a1.65 1.65 0 0 0 1.82.33h0a1.65 1.65 0 0 0 1-1.51V3a2 2 0 1 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82v0a1.65 1.65 0 0 0 1.51 1H21a2 2 0 1 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg></span>
+          </aside>
+
+          <!-- Main -->
+          <main class="flex-1 p-4 md:p-5 space-y-4 md:space-y-5">
+
+            <!-- Top: 4 stat cards -->
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-3">
+              <!-- Card 1: Sprint Calendar -->
+              <div class="rounded-lg border border-ink-600 bg-ink-700/60 p-3">
+                <div class="flex items-center justify-between mb-2">
+                  <span class="text-[9px] font-mono uppercase tracking-widest text-bone-300">Sprint Calendar</span>
+                  <span class="w-1.5 h-1.5 rounded-full bg-brand-yellow"></span>
+                </div>
+                <div class="grid grid-cols-7 gap-0.5">
+                  <div class="aspect-square bg-ink-600 rounded-sm"></div>
+                  <div class="aspect-square bg-ink-500 rounded-sm"></div>
+                  <div class="aspect-square bg-brand-yellow rounded-sm"></div>
+                  <div class="aspect-square bg-brand-yellow rounded-sm"></div>
+                  <div class="aspect-square bg-ink-500 rounded-sm"></div>
+                  <div class="aspect-square bg-ink-500 rounded-sm"></div>
+                  <div class="aspect-square bg-ink-600 rounded-sm"></div>
+                </div>
+                <div class="mt-2 text-[10px] font-mono text-bone-200">Sprint 24 Â· Day 4 / 10</div>
+              </div>
+              <!-- Card 2: AI Alerts -->
+              <div class="rounded-lg border border-ink-600 bg-ink-700/60 p-3">
+                <div class="flex items-center justify-between mb-2">
+                  <span class="text-[9px] font-mono uppercase tracking-widest text-bone-300">AI Alerts</span>
+                  <span class="text-[9px] font-mono text-brand-yellow font-semibold">â— 3 new</span>
+                </div>
+                <div class="space-y-1.5">
+                  <div class="flex items-center gap-1.5"><span class="w-1.5 h-1.5 rounded-full bg-brand-yellow"></span><div class="h-1 bar rounded flex-1"></div></div>
+                  <div class="flex items-center gap-1.5"><span class="w-1.5 h-1.5 rounded-full bg-ink-500"></span><div class="h-1 bar rounded flex-1 w-3/4"></div></div>
+                  <div class="flex items-center gap-1.5"><span class="w-1.5 h-1.5 rounded-full bg-ink-500"></span><div class="h-1 bar rounded flex-1 w-1/2"></div></div>
+                </div>
+                <div class="mt-2 flex justify-between items-center">
+                  <span class="text-[10px] font-mono text-bone-200">Anomalies</span>
+                  <span class="text-[10px] font-mono text-brand-yellow font-bold">+12.4%</span>
+                </div>
+              </div>
+              <!-- Card 3: Top Metrics -->
+              <div class="rounded-lg border border-ink-600 bg-ink-700/60 p-3">
+                <div class="flex items-center justify-between mb-2">
+                  <span class="text-[9px] font-mono uppercase tracking-widest text-bone-300">Activation Rate</span>
+                </div>
+                <div class="font-display text-xl md:text-2xl font-bold leading-none">98.4%</div>
+                <div class="mt-1 text-[10px] font-mono text-brand-yellow">â–² 2.1pp WoW</div>
+                <div class="mt-2 h-7 flex items-end gap-0.5">
+                  <div class="flex-1 bg-ink-500 rounded-t" style="height:30%"></div>
+                  <div class="flex-1 bg-ink-500 rounded-t" style="height:55%"></div>
+                  <div class="flex-1 bg-ink-500 rounded-t" style="height:42%"></div>
+                  <div class="flex-1 bg-ink-500 rounded-t" style="height:68%"></div>
+                  <div class="flex-1 bg-brand-yellow rounded-t" style="height:80%"></div>
+                  <div class="flex-1 bg-brand-yellow rounded-t" style="height:95%"></div>
+                </div>
+              </div>
+              <!-- Card 4: Project Health donut -->
+              <div class="rounded-lg border border-ink-600 bg-ink-700/60 p-3">
+                <div class="flex items-center justify-between mb-2">
+                  <span class="text-[9px] font-mono uppercase tracking-widest text-bone-300">Project Health</span>
+                </div>
+                <div class="flex items-center gap-3">
+                  <svg width="44" height="44" viewBox="0 0 40 40">
+                    <circle cx="20" cy="20" r="16" fill="none" stroke="#1F1F1F" stroke-width="6"/>
+                    <circle cx="20" cy="20" r="16" fill="none" stroke="#FFD60A" stroke-width="6" stroke-dasharray="82 100" stroke-dashoffset="0" transform="rotate(-90 20 20)" stroke-linecap="round"/>
+                  </svg>
+                  <div>
+                    <div class="font-display text-lg font-bold leading-none">82%</div>
+                    <div class="text-[9px] font-mono text-bone-200 mt-1">on track</div>
+                  </div>
+                </div>
+                <div class="mt-2 text-[9px] font-mono text-brand-yellow">â–² 4 milestones</div>
+              </div>
+            </div>
+
+            <!-- Center workspace headline -->
+            <div class="rounded-xl border border-ink-600 bg-gradient-to-b from-ink-800/40 to-ink-700/10 px-6 py-10 md:py-14 text-center">
+              <h3 class="font-display text-2xl md:text-3xl lg:text-4xl font-bold tracking-tight">AI-Powered Product<br/>Design Workspace</h3>
+              <p class="mt-3 text-sm text-bone-200 max-w-md mx-auto leading-relaxed">A unified surface for sprints, design tokens, components and product analytics â€” built for shipping teams.</p>
+            </div>
+
+            <!-- Prompt bar -->
+            <div class="rounded-xl border border-ink-600 bg-ink-700/40 p-2.5 flex items-center gap-2">
+              <span class="text-xs font-mono text-bone-300 flex-1 px-2 truncate">Ask about cohorts, components, or paste a Figma linkâ€¦</span>
+              <span class="hidden md:inline px-2.5 py-1 rounded bg-ink-700 border border-ink-500 text-[10px] font-mono text-bone-200">Analyze Sprint</span>
+              <span class="hidden md:inline px-2.5 py-1 rounded bg-ink-700 border border-ink-500 text-[10px] font-mono text-bone-200">Deep Research</span>
+              <span class="hidden md:inline px-2.5 py-1 rounded bg-ink-700 border border-ink-500 text-[10px] font-mono text-bone-200">More</span>
+              <span class="w-7 h-7 rounded-md bg-brand-yellow grid place-items-center text-ink-900">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M2 21l21-9L2 3v7l15 2-15 2v7z"/></svg>
+              </span>
+            </div>
+          </main>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- LOGO TICKER -->
+<section class="border-y border-ink-600 bg-ink-950 py-8 overflow-hidden">
+  <div class="max-w-7xl mx-auto px-6 mb-6 text-center text-xs font-mono uppercase tracking-[0.2em] text-bone-300">
+    Trusted by founders building in
+  </div>
+  <div class="relative">
+    <div class="flex gap-16 ticker whitespace-nowrap">
+      <span class="font-display text-2xl text-bone-200/80">Developer Tools</span>
+      <span class="text-bone-400">/</span>
+      <span class="font-display text-2xl text-bone-200/80">AI Infrastructure</span>
+      <span class="text-bone-400">/</span>
+      <span class="font-display text-2xl text-bone-200/80">Vertical SaaS</span>
+      <span class="text-bone-400">/</span>
+      <span class="font-display text-2xl text-bone-200/80">Agentic Products</span>
+      <span class="text-bone-400">/</span>
+      <span class="font-display text-2xl text-bone-200/80">Fintech</span>
+      <span class="text-bone-400">/</span>
+      <span class="font-display text-2xl text-bone-200/80">DevOps Platforms</span>
+      <span class="text-bone-400">/</span>
+      <span class="font-display text-2xl text-bone-200/80">Data Tooling</span>
+      <span class="text-bone-400">/</span>
+      <!-- duplicate for seamless loop -->
+      <span class="font-display text-2xl text-bone-200/80">Developer Tools</span>
+      <span class="text-bone-400">/</span>
+      <span class="font-display text-2xl text-bone-200/80">AI Infrastructure</span>
+      <span class="text-bone-400">/</span>
+      <span class="font-display text-2xl text-bone-200/80">Vertical SaaS</span>
+      <span class="text-bone-400">/</span>
+      <span class="font-display text-2xl text-bone-200/80">Agentic Products</span>
+      <span class="text-bone-400">/</span>
+      <span class="font-display text-2xl text-bone-200/80">Fintech</span>
+      <span class="text-bone-400">/</span>
+      <span class="font-display text-2xl text-bone-200/80">DevOps Platforms</span>
+      <span class="text-bone-400">/</span>
+      <span class="font-display text-2xl text-bone-200/80">Data Tooling</span>
+      <span class="text-bone-400">/</span>
+    </div>
+  </div>
+</section>
+
+<!-- SERVICES -->
+<section id="services" class="py-24 md:py-32">
+  <div class="max-w-7xl mx-auto px-6">
+    <div class="flex flex-col md:flex-row md:items-end md:justify-between gap-6 mb-16">
+      <div>
+        <div class="text-xs font-mono uppercase tracking-[0.2em] text-brand-yellow">[ 01 ] What we do</div>
+        <h2 class="mt-4 font-display text-4xl md:text-6xl font-bold tracking-tight max-w-3xl text-gradient">A focused stack â€” not a generic agency menu.</h2>
+      </div>
+      <p class="text-bone-200 max-w-md">We design product UI and design systems for SaaS and AI startups. That's it. No branding kits, no print, no marketing fluff.</p>
+    </div>
+
+    <div class="grid md:grid-cols-3 gap-5">
+      <!-- Card 1 -->
+      <div class="group rounded-xl border border-ink-600 bg-ink-800/60 p-7 hover:border-brand-yellow/60 transition relative overflow-hidden">
+        <div class="absolute -top-12 -right-12 w-40 h-40 bg-brand-yellow/10 blur-3xl group-hover:bg-brand-yellow/20 transition"></div>
+        <div class="relative">
+          <div class="w-11 h-11 rounded-lg bg-brand-yellow text-ink-900 grid place-items-center mb-5">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="9"/><rect x="14" y="3" width="7" height="5"/><rect x="14" y="12" width="7" height="9"/><rect x="3" y="16" width="7" height="5"/></svg>
+          </div>
+          <h3 class="font-display text-2xl font-bold">Product UI</h3>
+          <p class="mt-3 text-bone-200 leading-relaxed">Dashboards, complex flows, in-product surfaces. Designed for density, scale, and shipping speed â€” not for design awards.</p>
+          <ul class="mt-5 space-y-2 text-sm text-bone-100">
+            <li class="flex gap-2"><span class="text-brand-yellow">â†’</span> Admin &amp; data dashboards</li>
+            <li class="flex gap-2"><span class="text-brand-yellow">â†’</span> Onboarding &amp; activation flows</li>
+            <li class="flex gap-2"><span class="text-brand-yellow">â†’</span> AI-feature UX (chat, agents, copilots)</li>
+            <li class="flex gap-2"><span class="text-brand-yellow">â†’</span> Settings, billing, account surfaces</li>
+          </ul>
+        </div>
+      </div>
+      <!-- Card 2 -->
+      <div class="group rounded-xl border border-ink-600 bg-ink-800/60 p-7 hover:border-brand-yellow/60 transition relative overflow-hidden">
+        <div class="absolute -top-12 -right-12 w-40 h-40 bg-brand-yellow/10 blur-3xl group-hover:bg-brand-yellow/20 transition"></div>
+        <div class="relative">
+          <div class="w-11 h-11 rounded-lg bg-brand-yellow text-ink-900 grid place-items-center mb-5">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2 4 6v6c0 5 3.5 9 8 10 4.5-1 8-5 8-10V6l-8-4Z"/><path d="M9 12l2 2 4-4"/></svg>
+          </div>
+          <h3 class="font-display text-2xl font-bold">Design Systems</h3>
+          <p class="mt-3 text-bone-200 leading-relaxed">Token-based systems your engineers will actually use. Figma libraries, components, documentation, code-ready handoff.</p>
+          <ul class="mt-5 space-y-2 text-sm text-bone-100">
+            <li class="flex gap-2"><span class="text-brand-yellow">â†’</span> Design tokens (color, type, spacing)</li>
+            <li class="flex gap-2"><span class="text-brand-yellow">â†’</span> Component library in Figma</li>
+            <li class="flex gap-2"><span class="text-brand-yellow">â†’</span> Accessibility &amp; dark-mode baked in</li>
+            <li class="flex gap-2"><span class="text-brand-yellow">â†’</span> Engineering documentation</li>
+          </ul>
+        </div>
+      </div>
+      <!-- Card 3 -->
+      <div class="group rounded-xl border border-ink-600 bg-ink-800/60 p-7 hover:border-brand-yellow/60 transition relative overflow-hidden">
+        <div class="absolute -top-12 -right-12 w-40 h-40 bg-brand-yellow/10 blur-3xl group-hover:bg-brand-yellow/20 transition"></div>
+        <div class="relative">
+          <div class="w-11 h-11 rounded-lg bg-brand-yellow text-ink-900 grid place-items-center mb-5">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M13 2 3 14h9l-1 8 10-12h-9l1-8Z"/></svg>
+          </div>
+          <h3 class="font-display text-2xl font-bold">Sprint Engagements</h3>
+          <p class="mt-3 text-bone-200 leading-relaxed">Two-week focused sprints. Audit, design, ship. No discovery phases, no vague retainers, no surprise invoices.</p>
+          <ul class="mt-5 space-y-2 text-sm text-bone-100">
+            <li class="flex gap-2"><span class="text-brand-yellow">â†’</span> 2-week scoped sprints</li>
+            <li class="flex gap-2"><span class="text-brand-yellow">â†’</span> Daily Figma updates</li>
+            <li class="flex gap-2"><span class="text-brand-yellow">â†’</span> Async Loom walkthroughs</li>
+            <li class="flex gap-2"><span class="text-brand-yellow">â†’</span> Engineering-ready handoff</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- WHY -->
+<section class="py-24 md:py-32 border-y border-ink-600 bg-ink-950 relative overflow-hidden">
+  <div class="absolute inset-0 grid-bg opacity-50 pointer-events-none"></div>
+  <div class="max-w-7xl mx-auto px-6 relative">
+    <div class="text-center max-w-3xl mx-auto mb-16">
+      <div class="text-xs font-mono uppercase tracking-[0.2em] text-brand-yellow">[ 02 ] Why Gridwise</div>
+      <h2 class="mt-4 font-display text-4xl md:text-6xl font-bold tracking-tight">Built for SaaS speed.<br/><span class="text-bone-300">Not agency drag.</span></h2>
+    </div>
+    <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-px bg-ink-600 rounded-2xl overflow-hidden border border-ink-600">
+      <div class="bg-ink-900 p-7">
+        <div class="font-mono text-xs text-brand-yellow">/ 01</div>
+        <h3 class="mt-3 font-display text-xl font-bold">Specialists, not generalists</h3>
+        <p class="mt-2 text-bone-200 text-sm leading-relaxed">We only design product UI and systems for SaaS &amp; AI startups. We won't pitch you a logo.</p>
+      </div>
+      <div class="bg-ink-900 p-7">
+        <div class="font-mono text-xs text-brand-yellow">/ 02</div>
+        <h3 class="mt-3 font-display text-xl font-bold">Sprint-based delivery</h3>
+        <p class="mt-2 text-bone-200 text-sm leading-relaxed">Designs in week one, finalized handoff in week two. Predictable, dated, no scope creep.</p>
+      </div>
+      <div class="bg-ink-900 p-7">
+        <div class="font-mono text-xs text-brand-yellow">/ 03</div>
+        <h3 class="mt-3 font-display text-xl font-bold">AI-augmented workflow</h3>
+        <p class="mt-2 text-bone-200 text-sm leading-relaxed">We use AI tools to generate variants, automate handoff docs, and halve prototype time.</p>
+      </div>
+      <div class="bg-ink-900 p-7">
+        <div class="font-mono text-xs text-brand-yellow">/ 04</div>
+        <h3 class="mt-3 font-display text-xl font-bold">Senior-only design</h3>
+        <p class="mt-2 text-bone-200 text-sm leading-relaxed">Every project is led by a senior product designer. No juniors training on your account.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- BUILT FOR -->
+<section id="built-for" class="py-24 md:py-32 border-t border-ink-600 bg-ink-900 relative overflow-hidden">
+  <div class="absolute inset-0 grid-bg opacity-30 pointer-events-none"></div>
+  <div class="max-w-7xl mx-auto px-6 relative">
+    <div class="mb-12 max-w-3xl">
+      <div class="text-xs font-mono uppercase tracking-[0.2em] text-brand-yellow">[ 03 ] Built for</div>
+      <h2 class="mt-4 font-display text-4xl md:text-6xl font-bold tracking-tight">Designed for the products<br/>you're shipping.</h2>
+      <p class="mt-5 text-bone-200 max-w-2xl">One product-design partner for every flavor of modern SaaS â€” from agentic AI products to data-heavy vertical workflows.</p>
+    </div>
+
+    <div class="rounded-2xl border border-ink-600 bg-ink-950 overflow-hidden">
+      <!-- Tabs -->
+      <div class="grid grid-cols-2 md:grid-cols-4 border-b border-ink-600" role="tablist" id="builtFor-tabs">
+        <button data-tab="agents" class="tab-btn relative py-5 px-4 text-sm md:text-base font-display font-semibold" aria-selected="true">
+          <span>AI Agents</span>
+          <span class="tab-indicator absolute inset-x-6 bottom-0 h-0.5 bg-brand-yellow"></span>
+        </button>
+        <button data-tab="devtools" class="tab-btn relative py-5 px-4 text-sm md:text-base font-display font-semibold" aria-selected="false">
+          <span>Developer Tools</span>
+          <span class="tab-indicator absolute inset-x-6 bottom-0 h-0.5 bg-brand-yellow"></span>
+        </button>
+        <button data-tab="vsaas" class="tab-btn relative py-5 px-4 text-sm md:text-base font-display font-semibold" aria-selected="false">
+          <span>Vertical SaaS</span>
+          <span class="tab-indicator absolute inset-x-6 bottom-0 h-0.5 bg-brand-yellow"></span>
+        </button>
+        <button data-tab="data" class="tab-btn relative py-5 px-4 text-sm md:text-base font-display font-semibold" aria-selected="false">
+          <span>Data Platforms</span>
+          <span class="tab-indicator absolute inset-x-6 bottom-0 h-0.5 bg-brand-yellow"></span>
+        </button>
+      </div>
+
+      <!-- Panels -->
+      <div class="relative p-6 md:p-12 min-h-[480px]">
+
+        <!-- Panel: AI Agents -->
+        <div data-panel="agents" class="panel-content">
+          <div class="flex justify-center items-end gap-6 md:gap-14 mb-2 relative">
+            <div class="icon-tile w-12 h-12 rounded-lg bg-ink-800 border border-ink-500 grid place-items-center text-bone-100">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="6" width="16" height="14" rx="2"/><circle cx="9" cy="13" r="1.5"/><circle cx="15" cy="13" r="1.5"/><path d="M12 2v4M9 20v2M15 20v2"/></svg>
+            </div>
+            <div class="icon-tile w-12 h-12 rounded-lg bg-ink-800 border border-ink-500 grid place-items-center text-bone-100">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><polyline points="8 6 3 12 8 18"/><polyline points="16 6 21 12 16 18"/></svg>
+            </div>
+            <div class="icon-tile w-12 h-12 rounded-lg bg-brand-yellow text-ink-900 grid place-items-center shadow-[0_0_24px_rgba(255,214,10,0.5)]">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2 4 6v6c0 5 3.5 9 8 10 4.5-1 8-5 8-10V6l-8-4Z"/><path d="m9 12 2 2 4-4"/></svg>
+            </div>
+            <div class="icon-tile w-12 h-12 rounded-lg bg-ink-800 border border-ink-500 grid place-items-center text-bone-100">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M3 3v18h18"/><path d="M7 14l4-4 4 4 5-6"/></svg>
+            </div>
+            <div class="icon-tile w-12 h-12 rounded-lg bg-ink-800 border border-ink-500 grid place-items-center text-bone-100">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="10" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+            </div>
+          </div>
+          <div class="flex justify-center gap-6 md:gap-14 h-12 px-1">
+            <div class="w-px flow-line"></div>
+            <div class="w-px flow-line"></div>
+            <div class="w-px flow-line"></div>
+            <div class="w-px flow-line"></div>
+            <div class="w-px flow-line"></div>
+          </div>
+          <div class="max-w-sm mx-auto rounded-xl border border-ink-500 bg-ink-800 p-5 shadow-2xl">
+            <div class="flex items-center justify-between text-xs font-mono text-bone-300">
+              <span>Agent Health Score</span>
+              <span class="flex items-center gap-1.5"><span class="w-1.5 h-1.5 rounded-full bg-brand-yellow blink"></span>Live Â· 2 min ago</span>
+            </div>
+            <div class="mt-4 flex items-end justify-between">
+              <div>
+                <div class="font-display text-5xl font-bold leading-none">94<span class="text-bone-300 text-2xl">/100</span></div>
+                <div class="mt-2 text-xs font-mono text-brand-yellow">â–² 6.2 vs last 24h</div>
+              </div>
+              <div class="flex items-end gap-1 h-14">
+                <div class="w-1.5 bg-ink-500 rounded-t" style="height:30%"></div>
+                <div class="w-1.5 bg-ink-500 rounded-t" style="height:48%"></div>
+                <div class="w-1.5 bg-ink-500 rounded-t" style="height:38%"></div>
+                <div class="w-1.5 bg-ink-500 rounded-t" style="height:62%"></div>
+                <div class="w-1.5 bg-ink-500 rounded-t" style="height:55%"></div>
+                <div class="w-1.5 bg-brand-yellow rounded-t" style="height:80%"></div>
+                <div class="w-1.5 bg-brand-yellow rounded-t" style="height:95%"></div>
+              </div>
+            </div>
+          </div>
+          <div class="mt-10 grid md:grid-cols-3 gap-6 items-end">
+            <p class="md:col-span-2 text-bone-200 leading-relaxed">Gridwise designs operator consoles, evaluation dashboards, and agent control surfaces â€” turning complex multi-step AI infrastructure into a product non-engineers can trust, demo, and ship.</p>
+            <div class="md:text-right"><a href="#contact" class="px-4 py-2 inline-flex items-center gap-1.5 rounded-full border border-ink-500 hover:border-brand-yellow hover:text-brand-yellow text-sm transition">Discuss your agent UI â†’</a></div>
+          </div>
+        </div>
+
+        <!-- Panel: Developer Tools -->
+        <div data-panel="devtools" class="panel-content hidden">
+          <div class="flex justify-center items-end gap-6 md:gap-14 mb-2 relative">
+            <div class="icon-tile w-12 h-12 rounded-lg bg-ink-800 border border-ink-500 grid place-items-center text-bone-100">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><polyline points="4 17 10 11 4 5"/><line x1="12" y1="19" x2="20" y2="19"/></svg>
+            </div>
+            <div class="icon-tile w-12 h-12 rounded-lg bg-ink-800 border border-ink-500 grid place-items-center text-bone-100">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="6" cy="6" r="2.5"/><circle cx="6" cy="18" r="2.5"/><circle cx="18" cy="12" r="2.5"/><path d="M8 6h6a4 4 0 0 1 4 4v0M8 18h6a4 4 0 0 0 4-4v0"/></svg>
+            </div>
+            <div class="icon-tile w-12 h-12 rounded-lg bg-brand-yellow text-ink-900 grid place-items-center shadow-[0_0_24px_rgba(255,214,10,0.5)]">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M9 9h6v6H9z"/></svg>
+            </div>
+            <div class="icon-tile w-12 h-12 rounded-lg bg-ink-800 border border-ink-500 grid place-items-center text-bone-100">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16Z"/><path d="m3.3 7 8.7 5 8.7-5M12 22V12"/></svg>
+            </div>
+            <div class="icon-tile w-12 h-12 rounded-lg bg-ink-800 border border-ink-500 grid place-items-center text-bone-100">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="m21 2-2 2m-7.61 7.61a5.5 5.5 0 1 1-7.778 7.778 5.5 5.5 0 0 1 7.777-7.777Zm0 0L15.5 7.5m0 0 3 3L22 7l-3-3"/></svg>
+            </div>
+          </div>
+          <div class="flex justify-center gap-6 md:gap-14 h-12 px-1">
+            <div class="w-px flow-line"></div>
+            <div class="w-px flow-line"></div>
+            <div class="w-px flow-line"></div>
+            <div class="w-px flow-line"></div>
+            <div class="w-px flow-line"></div>
+          </div>
+          <div class="max-w-sm mx-auto rounded-xl border border-ink-500 bg-ink-800 p-5 shadow-2xl">
+            <div class="flex items-center justify-between text-xs font-mono text-bone-300">
+              <span>API p95 Latency</span>
+              <span class="flex items-center gap-1.5"><span class="w-1.5 h-1.5 rounded-full bg-brand-yellow blink"></span>30d</span>
+            </div>
+            <div class="mt-4 flex items-end justify-between">
+              <div>
+                <div class="font-display text-5xl font-bold leading-none">142<span class="text-bone-300 text-2xl">ms</span></div>
+                <div class="mt-2 text-xs font-mono text-brand-yellow">â–¼ 9.4% vs last month</div>
+              </div>
+              <div class="flex items-end gap-1 h-14">
+                <div class="w-1.5 bg-ink-500 rounded-t" style="height:80%"></div>
+                <div class="w-1.5 bg-ink-500 rounded-t" style="height:72%"></div>
+                <div class="w-1.5 bg-ink-500 rounded-t" style="height:78%"></div>
+                <div class="w-1.5 bg-ink-500 rounded-t" style="height:60%"></div>
+                <div class="w-1.5 bg-ink-500 rounded-t" style="height:55%"></div>
+                <div class="w-1.5 bg-brand-yellow rounded-t" style="height:42%"></div>
+                <div class="w-1.5 bg-brand-yellow rounded-t" style="height:35%"></div>
+              </div>
+            </div>
+          </div>
+          <div class="mt-10 grid md:grid-cols-3 gap-6 items-end">
+            <p class="md:col-span-2 text-bone-200 leading-relaxed">From CLI companions to cloud dashboards, we design developer-first product UI â€” dense, fast, keyboard-driven â€” that engineers actually want to use, not work around.</p>
+            <div class="md:text-right"><a href="#contact" class="px-4 py-2 inline-flex items-center gap-1.5 rounded-full border border-ink-500 hover:border-brand-yellow hover:text-brand-yellow text-sm transition">Discuss your dev tool â†’</a></div>
+          </div>
+        </div>
+
+        <!-- Panel: Vertical SaaS -->
+        <div data-panel="vsaas" class="panel-content hidden">
+          <div class="flex justify-center items-end gap-6 md:gap-14 mb-2 relative">
+            <div class="icon-tile w-12 h-12 rounded-lg bg-ink-800 border border-ink-500 grid place-items-center text-bone-100">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M3 15h18M9 3v18M15 3v18"/></svg>
+            </div>
+            <div class="icon-tile w-12 h-12 rounded-lg bg-ink-800 border border-ink-500 grid place-items-center text-bone-100">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg>
+            </div>
+            <div class="icon-tile w-12 h-12 rounded-lg bg-brand-yellow text-ink-900 grid place-items-center shadow-[0_0_24px_rgba(255,214,10,0.5)]">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><path d="M9 13h6M9 17h6"/></svg>
+            </div>
+            <div class="icon-tile w-12 h-12 rounded-lg bg-ink-800 border border-ink-500 grid place-items-center text-bone-100">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+            </div>
+            <div class="icon-tile w-12 h-12 rounded-lg bg-ink-800 border border-ink-500 grid place-items-center text-bone-100">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09a1.65 1.65 0 0 0-1-1.51 1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09a1.65 1.65 0 0 0 1.51-1 1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06a1.65 1.65 0 0 0 1.82.33h0a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82v0a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>
+            </div>
+          </div>
+          <div class="flex justify-center gap-6 md:gap-14 h-12 px-1">
+            <div class="w-px flow-line"></div>
+            <div class="w-px flow-line"></div>
+            <div class="w-px flow-line"></div>
+            <div class="w-px flow-line"></div>
+            <div class="w-px flow-line"></div>
+          </div>
+          <div class="max-w-sm mx-auto rounded-xl border border-ink-500 bg-ink-800 p-5 shadow-2xl">
+            <div class="flex items-center justify-between text-xs font-mono text-bone-300">
+              <span>Tasks completed today</span>
+              <span class="flex items-center gap-1.5"><span class="w-1.5 h-1.5 rounded-full bg-brand-yellow blink"></span>Live</span>
+            </div>
+            <div class="mt-4 flex items-end justify-between">
+              <div>
+                <div class="font-display text-5xl font-bold leading-none">1,284</div>
+                <div class="mt-2 text-xs font-mono text-brand-yellow">â–² 22% vs avg</div>
+              </div>
+              <div class="flex items-end gap-1 h-14">
+                <div class="w-1.5 bg-ink-500 rounded-t" style="height:35%"></div>
+                <div class="w-1.5 bg-ink-500 rounded-t" style="height:48%"></div>
+                <div class="w-1.5 bg-ink-500 rounded-t" style="height:55%"></div>
+                <div class="w-1.5 bg-ink-500 rounded-t" style="height:60%"></div>
+                <div class="w-1.5 bg-ink-500 rounded-t" style="height:72%"></div>
+                <div class="w-1.5 bg-brand-yellow rounded-t" style="height:88%"></div>
+                <div class="w-1.5 bg-brand-yellow rounded-t" style="height:95%"></div>
+              </div>
+            </div>
+          </div>
+          <div class="mt-10 grid md:grid-cols-3 gap-6 items-end">
+            <p class="md:col-span-2 text-bone-200 leading-relaxed">Workflow-heavy interfaces for finance, healthcare, ops, and legal â€” replacing spreadsheets and legacy tools with focused workspaces your customers won't outgrow.</p>
+            <div class="md:text-right"><a href="#contact" class="px-4 py-2 inline-flex items-center gap-1.5 rounded-full border border-ink-500 hover:border-brand-yellow hover:text-brand-yellow text-sm transition">Discuss your workflow â†’</a></div>
+          </div>
+        </div>
+
+        <!-- Panel: Data Platforms -->
+        <div data-panel="data" class="panel-content hidden">
+          <div class="flex justify-center items-end gap-6 md:gap-14 mb-2 relative">
+            <div class="icon-tile w-12 h-12 rounded-lg bg-ink-800 border border-ink-500 grid place-items-center text-bone-100">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><ellipse cx="12" cy="5" rx="9" ry="3"/><path d="M3 5v6c0 1.66 4 3 9 3s9-1.34 9-3V5"/><path d="M3 11v6c0 1.66 4 3 9 3s9-1.34 9-3v-6"/></svg>
+            </div>
+            <div class="icon-tile w-12 h-12 rounded-lg bg-ink-800 border border-ink-500 grid place-items-center text-bone-100">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M3 3v18h18"/><path d="m7 14 4-4 4 4 5-6"/></svg>
+            </div>
+            <div class="icon-tile w-12 h-12 rounded-lg bg-brand-yellow text-ink-900 grid place-items-center shadow-[0_0_24px_rgba(255,214,10,0.5)]">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="22 3 2 3 10 12.46 10 19 14 21 14 12.46 22 3"/></svg>
+            </div>
+            <div class="icon-tile w-12 h-12 rounded-lg bg-ink-800 border border-ink-500 grid place-items-center text-bone-100">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+            </div>
+            <div class="icon-tile w-12 h-12 rounded-lg bg-ink-800 border border-ink-500 grid place-items-center text-bone-100">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 2 7 12 12 22 7 12 2"/><polyline points="2 17 12 22 22 17"/><polyline points="2 12 12 17 22 12"/></svg>
+            </div>
+          </div>
+          <div class="flex justify-center gap-6 md:gap-14 h-12 px-1">
+            <div class="w-px flow-line"></div>
+            <div class="w-px flow-line"></div>
+            <div class="w-px flow-line"></div>
+            <div class="w-px flow-line"></div>
+            <div class="w-px flow-line"></div>
+          </div>
+          <div class="max-w-sm mx-auto rounded-xl border border-ink-500 bg-ink-800 p-5 shadow-2xl">
+            <div class="flex items-center justify-between text-xs font-mono text-bone-300">
+              <span>Active queries</span>
+              <span class="flex items-center gap-1.5"><span class="w-1.5 h-1.5 rounded-full bg-brand-yellow blink"></span>Real-time</span>
+            </div>
+            <div class="mt-4 flex items-end justify-between">
+              <div>
+                <div class="font-display text-5xl font-bold leading-none">3.2<span class="text-bone-300 text-2xl">M</span></div>
+                <div class="mt-2 text-xs font-mono text-brand-yellow">â–² 14.6% wow</div>
+              </div>
+              <div class="flex items-end gap-1 h-14">
+                <div class="w-1.5 bg-ink-500 rounded-t" style="height:40%"></div>
+                <div class="w-1.5 bg-ink-500 rounded-t" style="height:52%"></div>
+                <div class="w-1.5 bg-ink-500 rounded-t" style="height:48%"></div>
+                <div class="w-1.5 bg-ink-500 rounded-t" style="height:65%"></div>
+                <div class="w-1.5 bg-ink-500 rounded-t" style="height:75%"></div>
+                <div class="w-1.5 bg-brand-yellow rounded-t" style="height:88%"></div>
+                <div class="w-1.5 bg-brand-yellow rounded-t" style="height:96%"></div>
+              </div>
+            </div>
+          </div>
+          <div class="mt-10 grid md:grid-cols-3 gap-6 items-end">
+            <p class="md:col-span-2 text-bone-200 leading-relaxed">Tables, charts, drilldowns, exports. We design data product UI that scales from a hundred rows to a hundred million â€” without losing clarity or speed.</p>
+            <div class="md:text-right"><a href="#contact" class="px-4 py-2 inline-flex items-center gap-1.5 rounded-full border border-ink-500 hover:border-brand-yellow hover:text-brand-yellow text-sm transition">Discuss your data product â†’</a></div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PROCESS -->
+<section id="process" class="py-24 md:py-32">
+  <div class="max-w-7xl mx-auto px-6">
+    <div class="flex flex-col md:flex-row md:items-end md:justify-between gap-6 mb-16">
+      <div>
+        <div class="text-xs font-mono uppercase tracking-[0.2em] text-brand-yellow">[ 04 ] Process</div>
+        <h2 class="mt-4 font-display text-4xl md:text-6xl font-bold tracking-tight max-w-3xl">Five steps. Two weeks. Shipped.</h2>
+      </div>
+      <p class="text-bone-200 max-w-md">A repeatable sprint structure refined over dozens of SaaS engagements. No mystery, no agency theatre.</p>
+    </div>
+
+    <div class="space-y-3">
+      <div class="grid md:grid-cols-12 gap-5 items-start p-6 rounded-xl border border-ink-600 hover:border-brand-yellow/40 transition">
+        <div class="md:col-span-2 font-mono text-brand-yellow text-sm">DAY 1</div>
+        <div class="md:col-span-3 font-display text-2xl font-bold">Audit</div>
+        <p class="md:col-span-7 text-bone-200">We review your current product, identify the highest-impact UI gaps, and define what's in scope. You get a written audit on day one â€” not week three.</p>
+      </div>
+      <div class="grid md:grid-cols-12 gap-5 items-start p-6 rounded-xl border border-ink-600 hover:border-brand-yellow/40 transition">
+        <div class="md:col-span-2 font-mono text-brand-yellow text-sm">DAY 2</div>
+        <div class="md:col-span-3 font-display text-2xl font-bold">Define</div>
+        <p class="md:col-span-7 text-bone-200">Sharp scope. What ships in two weeks, what doesn't. One Notion doc, one Figma file, one Slack channel. No kickoff workshop.</p>
+      </div>
+      <div class="grid md:grid-cols-12 gap-5 items-start p-6 rounded-xl border border-ink-600 hover:border-brand-yellow/40 transition">
+        <div class="md:col-span-2 font-mono text-brand-yellow text-sm">DAYS 3â€“8</div>
+        <div class="md:col-span-3 font-display text-2xl font-bold">Design</div>
+        <p class="md:col-span-7 text-bone-200">Daily Figma updates. Async Loom walkthroughs each evening. No scheduled review meetings unless decisions need them.</p>
+      </div>
+      <div class="grid md:grid-cols-12 gap-5 items-start p-6 rounded-xl border border-ink-600 hover:border-brand-yellow/40 transition">
+        <div class="md:col-span-2 font-mono text-brand-yellow text-sm">DAYS 9â€“11</div>
+        <div class="md:col-span-3 font-display text-2xl font-bold">System</div>
+        <p class="md:col-span-7 text-bone-200">Components extracted, tokens defined, documentation written. The work doesn't ship as flat screens â€” it ships as a living system.</p>
+      </div>
+      <div class="grid md:grid-cols-12 gap-5 items-start p-6 rounded-xl border border-ink-600 hover:border-brand-yellow/40 transition">
+        <div class="md:col-span-2 font-mono text-brand-yellow text-sm">DAYS 12â€“14</div>
+        <div class="md:col-span-3 font-display text-2xl font-bold">Handoff</div>
+        <p class="md:col-span-7 text-bone-200">Engineering-ready Figma + Loom walkthroughs per flow. Your engineers know exactly what to build before the sprint ends.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TESTIMONIAL -->
+<section class="py-24 md:py-32">
+  <div class="max-w-5xl mx-auto px-6">
+    <figure class="text-center">
+      <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="#FFD60A" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="mx-auto"><path d="M3 21c3 0 7-1 7-8V5c0-1.25-.756-2.017-2-2H4c-1.25 0-2 .75-2 1.972V11c0 1.25.75 2 2 2 1 0 1 0 1 1v1c0 1-1 2-2 2s-1 .008-1 1.031V20c0 1 0 1 1 1z"/><path d="M15 21c3 0 7-1 7-8V5c0-1.25-.757-2.017-2-2h-4c-1.25 0-2 .75-2 1.972V11c0 1.25.75 2 2 2 1 0 1 0 1 1v1c0 1-1 2-2 2s-1 .008-1 1.031V20c0 1 0 1 1 1z"/></svg>
+      <blockquote class="mt-8 font-display text-3xl md:text-5xl font-bold tracking-tight leading-tight">
+        "Our dashboard went from a liability we hid in demos to <span class="text-brand-yellow">the first thing we show investors</span>. Two weeks. Done."
+      </blockquote>
+      <figcaption class="mt-8 flex items-center justify-center gap-3 text-bone-200">
+        <span class="w-10 h-10 rounded-full bg-brand-yellow grid place-items-center text-ink-900 font-bold">M</span>
+        <div class="text-left">
+          <div class="font-semibold text-bone-50">Founder, Gridwise</div>
+          <div class="text-sm text-bone-300 font-mono">IIT Roorkee Alumni</div>
+        </div>
+      </figcaption>
+    </figure>
+  </div>
+</section>
+
+<!-- COMPARISON -->
+<section id="comparison" class="py-24 md:py-32 border-t border-ink-600">
+  <div class="max-w-6xl mx-auto px-6">
+    <div class="rounded-3xl bg-ink-900 p-6 md:p-12">
+
+      <!-- Header -->
+      <div class="mb-12 max-w-2xl">
+        <div class="font-mono text-xs uppercase tracking-[0.2em] text-bone-300">// Why Gridwise</div>
+        <h2 class="mt-4 font-display text-3xl md:text-5xl font-bold tracking-tight leading-[1.1]">
+          Other agencies pitch.<br/>
+          Gridwise <span class="text-brand-yellow">ships.</span>
+        </h2>
+      </div>
+
+      <!-- Comparison table -->
+      <div class="relative">
+        <!-- Highlight bg behind Gridwise column -->
+        <div class="absolute -top-4 -bottom-2 left-[41.666%] w-[25%] bg-ink-800 rounded-2xl pointer-events-none"></div>
+
+        <div class="grid grid-cols-12 relative">
+
+          <!-- Header row -->
+          <div class="col-span-5 py-5"></div>
+          <div class="col-span-3 py-5 flex items-center justify-center gap-2">
+            <span class="w-6 h-6 rounded bg-brand-yellow grid grid-cols-2 grid-rows-2 gap-[2px] p-1 shrink-0">
+              <span class="bg-ink-900 rounded-[1.5px]"></span>
+              <span class="bg-ink-900 rounded-[1.5px]"></span>
+              <span class="bg-ink-900 rounded-[1.5px]"></span>
+              <span class="bg-ink-900 rounded-[1.5px]"></span>
+            </span>
+            <span class="font-display text-base md:text-lg font-bold tracking-tight">Gridwise</span>
+          </div>
+          <div class="col-span-2 py-5 text-center">
+            <span class="font-display text-sm md:text-base text-bone-300">Generalist Agency</span>
+          </div>
+          <div class="col-span-2 py-5 text-center">
+            <span class="font-display text-sm md:text-base text-bone-300">In-House Hire</span>
+          </div>
+
+          <!-- Row: Senior product designer -->
+          <div class="col-span-5 border-t border-dashed border-ink-600/60 py-5 text-sm text-bone-200">Senior product designer</div>
+          <div class="col-span-3 py-5 flex justify-center">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#FFD60A" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+          </div>
+          <div class="col-span-2 border-t border-dashed border-ink-600/60 py-5 text-center text-sm text-bone-300">Mixed</div>
+          <div class="col-span-2 border-t border-dashed border-ink-600/60 py-5 text-center text-sm text-bone-300">6mo+ hiring</div>
+
+          <!-- Row: Time to first ship -->
+          <div class="col-span-5 border-t border-dashed border-ink-600/60 py-5 text-sm text-bone-200">Time to first ship</div>
+          <div class="col-span-3 py-5 text-center text-sm text-bone-50 font-semibold">2 weeks</div>
+          <div class="col-span-2 border-t border-dashed border-ink-600/60 py-5 text-center text-sm text-bone-300">3+ months</div>
+          <div class="col-span-2 border-t border-dashed border-ink-600/60 py-5 text-center text-sm text-bone-300">1–3 mo onboarding</div>
+
+          <!-- Row: SaaS/AI focus -->
+          <div class="col-span-5 border-t border-dashed border-ink-600/60 py-5 text-sm text-bone-200">SaaS &amp; AI product UI focus</div>
+          <div class="col-span-3 py-5 flex justify-center">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#FFD60A" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+          </div>
+          <div class="col-span-2 border-t border-dashed border-ink-600/60 py-5 text-center text-sm text-bone-300">Partial</div>
+          <div class="col-span-2 border-t border-dashed border-ink-600/60 py-5 text-center text-sm text-bone-300">Depends</div>
+
+          <!-- Row: AI-augmented workflow -->
+          <div class="col-span-5 border-t border-dashed border-ink-600/60 py-5 text-sm text-bone-200">AI-augmented workflow</div>
+          <div class="col-span-3 py-5 flex justify-center">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#FFD60A" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+          </div>
+          <div class="col-span-2 border-t border-dashed border-ink-600/60 py-5 text-center text-sm text-bone-300">—</div>
+          <div class="col-span-2 border-t border-dashed border-ink-600/60 py-5 text-center text-sm text-bone-300">Self-taught</div>
+
+          <!-- Row: Design system included -->
+          <div class="col-span-5 border-t border-dashed border-ink-600/60 py-5 text-sm text-bone-200">Design system included</div>
+          <div class="col-span-3 py-5 flex justify-center">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#FFD60A" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+          </div>
+          <div class="col-span-2 border-t border-dashed border-ink-600/60 py-5 text-center text-sm text-bone-300">Add-on</div>
+          <div class="col-span-2 border-t border-dashed border-ink-600/60 py-5 text-center text-sm text-bone-300">Build from scratch</div>
+
+          <!-- Row: Pause/cancel anytime -->
+          <div class="col-span-5 border-t border-dashed border-ink-600/60 py-5 text-sm text-bone-200">Pause / cancel anytime</div>
+          <div class="col-span-3 py-5 flex justify-center">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#FFD60A" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+          </div>
+          <div class="col-span-2 border-t border-dashed border-ink-600/60 py-5 flex justify-center">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#F87171" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+          </div>
+          <div class="col-span-2 border-t border-dashed border-ink-600/60 py-5 flex justify-center">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#F87171" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+    <p class="mt-10 text-center text-sm text-bone-300 font-mono">Curious if we're a fit? <a href="#contact" class="text-brand-yellow hover:underline">Book a 20-min intro →</a></p>
+  </div>
+</section>
+
+<!-- FAQ -->
+<section id="faq" class="py-24 md:py-32">
+  <div class="max-w-4xl mx-auto px-6">
+    <div class="mb-16">
+      <div class="text-xs font-mono uppercase tracking-[0.2em] text-brand-yellow">[ 06 ] FAQ</div>
+      <h2 class="mt-4 font-display text-4xl md:text-6xl font-bold tracking-tight">Common questions.</h2>
+    </div>
+    <div class="space-y-3">
+      <details class="group border border-ink-600 rounded-xl px-6 py-5 hover:border-brand-yellow/40 transition">
+        <summary class="flex items-center justify-between cursor-pointer">
+          <span class="font-display text-lg font-semibold">Do you work with pre-revenue startups?</span>
+          <span class="chev text-brand-yellow text-2xl transition-transform">+</span>
+        </summary>
+        <p class="mt-4 text-bone-200 leading-relaxed">Yes â€” pre-seed and seed are our sweet spot. If you're funded (even a small angel round) and have a product live, we're a fit. We don't currently take on idea-stage projects with no MVP.</p>
+      </details>
+      <details class="group border border-ink-600 rounded-xl px-6 py-5 hover:border-brand-yellow/40 transition">
+        <summary class="flex items-center justify-between cursor-pointer">
+          <span class="font-display text-lg font-semibold">How fast can you start?</span>
+          <span class="chev text-brand-yellow text-2xl transition-transform">+</span>
+        </summary>
+        <p class="mt-4 text-bone-200 leading-relaxed">Most sprints kick off within 5â€“7 business days of signing. We typically have one open slot in the current month and one in the following month.</p>
+      </details>
+      <details class="group border border-ink-600 rounded-xl px-6 py-5 hover:border-brand-yellow/40 transition">
+        <summary class="flex items-center justify-between cursor-pointer">
+          <span class="font-display text-lg font-semibold">Do you do branding, logos, or marketing sites?</span>
+          <span class="chev text-brand-yellow text-2xl transition-transform">+</span>
+        </summary>
+        <p class="mt-4 text-bone-200 leading-relaxed">No. We focus exclusively on product UI and design systems for SaaS &amp; AI startups. If you need a brand identity or marketing site, we'll happily refer you to studios we trust.</p>
+      </details>
+      <details class="group border border-ink-600 rounded-xl px-6 py-5 hover:border-brand-yellow/40 transition">
+        <summary class="flex items-center justify-between cursor-pointer">
+          <span class="font-display text-lg font-semibold">Do you work in Figma? How does handoff work?</span>
+          <span class="chev text-brand-yellow text-2xl transition-transform">+</span>
+        </summary>
+        <p class="mt-4 text-bone-200 leading-relaxed">Yes â€” Figma is our primary tool. Handoff includes a structured Figma file, design tokens (Tailwind/CSS-ready), component documentation, and a Loom walkthrough per major flow. Your engineers know exactly what to build.</p>
+      </details>
+      <details class="group border border-ink-600 rounded-xl px-6 py-5 hover:border-brand-yellow/40 transition">
+        <summary class="flex items-center justify-between cursor-pointer">
+          <span class="font-display text-lg font-semibold">How does payment and contracting work?</span>
+          <span class="chev text-brand-yellow text-2xl transition-transform">+</span>
+        </summary>
+        <p class="mt-4 text-bone-200 leading-relaxed">Standard MSA + SOW. Sprints are paid 50% on signing, 50% on delivery. Partner retainers are billed monthly in advance. We accept ACH, wire, and Stripe.</p>
+      </details>
+      <details class="group border border-ink-600 rounded-xl px-6 py-5 hover:border-brand-yellow/40 transition">
+        <summary class="flex items-center justify-between cursor-pointer">
+          <span class="font-display text-lg font-semibold">What if we need ongoing work after a sprint?</span>
+          <span class="chev text-brand-yellow text-2xl transition-transform">+</span>
+        </summary>
+        <p class="mt-4 text-bone-200 leading-relaxed">Most sprint clients roll into a Partner retainer. We'll discuss it in week two â€” no pressure, no churn-or-lose-us tactics.</p>
+      </details>
+      <details class="group border border-ink-600 rounded-xl px-6 py-5 hover:border-brand-yellow/40 transition">
+        <summary class="flex items-center justify-between cursor-pointer">
+          <span class="font-display text-lg font-semibold">Can you sign an NDA?</span>
+          <span class="chev text-brand-yellow text-2xl transition-transform">+</span>
+        </summary>
+        <p class="mt-4 text-bone-200 leading-relaxed">Of course. Send yours, or we can use ours. Standard mutual NDAs signed within 24 hours.</p>
+      </details>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT / CTA -->
+<section id="contact" class="py-24 md:py-32 border-t border-ink-600 relative overflow-hidden">
+  <div class="absolute inset-0 grid-bg grid-bg-fade pointer-events-none"></div>
+  <div class="absolute inset-x-0 top-1/2 -translate-y-1/2 h-[400px] bg-[radial-gradient(ellipse_at_center,rgba(255,214,10,0.15),transparent_60%)] pointer-events-none"></div>
+  <div class="relative max-w-4xl mx-auto px-6 text-center">
+    <div class="text-xs font-mono uppercase tracking-[0.2em] text-brand-yellow">[ 07 ] Let's talk</div>
+    <h2 class="mt-4 font-display text-5xl md:text-7xl font-bold tracking-tight leading-[0.95]">
+      Got a SaaS or AI product?<br/>
+      <span class="bg-brand-yellow text-ink-900 px-3 -mx-1 rounded-md inline-block mt-2">Let's design it right.</span>
+    </h2>
+    <p class="mt-8 text-lg text-bone-200 max-w-xl mx-auto">Tell us about your product, where you're stuck, and what you want shipped. We'll reply within one business day with a clear next step.</p>
+    <div class="mt-10 flex flex-col sm:flex-row gap-3 justify-center">
+      <a href="mailto:hello@gridwisedesigns.com" class="px-6 py-3.5 rounded-full bg-brand-yellow text-ink-900 font-semibold hover:bg-brand-yellowHover transition flex items-center justify-center gap-2">
+        hello@gridwisedesigns.com
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 5l7 7-7 7"/></svg>
+      </a>
+      <a href="#" class="px-6 py-3.5 rounded-full border border-ink-500 hover:border-brand-yellow hover:text-brand-yellow font-semibold transition">Book a 20-min intro call</a>
+    </div>
+    <p class="mt-8 text-sm font-mono text-bone-300">â€” or DM us on <a href="#" class="text-brand-yellow hover:underline">LinkedIn</a></p>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer class="border-t border-ink-600 bg-ink-950 relative overflow-hidden">
+
+  <div class="relative max-w-7xl mx-auto px-6 pt-20 pb-10">
+
+    <!-- Top: brand + columns -->
+    <div class="grid grid-cols-1 md:grid-cols-12 gap-12 md:gap-8">
+
+      <!-- Brand block -->
+      <div class="md:col-span-5">
+        <a href="#" class="inline-flex items-center gap-3">
+          <span class="w-10 h-10 rounded-md bg-brand-yellow grid grid-cols-2 grid-rows-2 gap-[3.5px] p-2">
+            <span class="bg-ink-900 rounded-[2px]"></span>
+            <span class="bg-ink-900 rounded-[2px]"></span>
+            <span class="bg-ink-900 rounded-[2px]"></span>
+            <span class="bg-ink-900 rounded-[2px]"></span>
+          </span>
+          <span class="font-display font-bold text-2xl tracking-tight">Gridwise</span>
+        </a>
+        <p class="mt-5 text-sm text-bone-200 max-w-xs leading-relaxed">Designing product UI and design systems for SaaS and AI startups. Shipped in two weeks.</p>
+
+        <!-- Social icons -->
+        <div class="mt-7 flex items-center gap-2">
+          <a href="#" aria-label="LinkedIn" class="w-9 h-9 rounded-md border border-ink-500 bg-ink-900 grid place-items-center text-bone-200 hover:border-brand-yellow hover:text-brand-yellow transition">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M20.5 2h-17A1.5 1.5 0 0 0 2 3.5v17A1.5 1.5 0 0 0 3.5 22h17a1.5 1.5 0 0 0 1.5-1.5v-17A1.5 1.5 0 0 0 20.5 2zM8 19H5V9h3v10zM6.5 7.7A1.7 1.7 0 1 1 6.5 4.3a1.7 1.7 0 0 1 0 3.4zM19 19h-3v-5.5c0-1.4-.5-2.4-1.8-2.4-1 0-1.6.7-1.8 1.4-.1.2-.1.6-.1.9V19h-3V9h3v1.3c.4-.6 1.1-1.5 2.7-1.5 2 0 3.5 1.3 3.5 4.1V19z"/></svg>
+          </a>
+          <a href="#" aria-label="Dribbble" class="w-9 h-9 rounded-md border border-ink-500 bg-ink-900 grid place-items-center text-bone-200 hover:border-brand-yellow hover:text-brand-yellow transition">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M8.56 2.75c4.37 6.03 6.02 9.42 8.03 17.72"/><path d="M2.75 15.5c5.05-1.07 13.16-1.21 17.4 1"/><path d="M21.25 8.5c-5.4 1.84-13.13 2.21-17.41-.18"/></svg>
+          </a>
+          <a href="mailto:hello@gridwisedesigns.com" aria-label="Email" class="w-9 h-9 rounded-md border border-ink-500 bg-ink-900 grid place-items-center text-bone-200 hover:border-brand-yellow hover:text-brand-yellow transition">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="2"/><polyline points="3 7 12 13 21 7"/></svg>
+          </a>
+        </div>
+      </div>
+
+      <!-- Link columns -->
+      <div class="md:col-span-7 grid grid-cols-2 md:grid-cols-4 gap-8">
+        <div>
+          <div class="text-xs font-mono uppercase tracking-widest text-bone-300 mb-4">Services</div>
+          <ul class="space-y-2.5 text-sm">
+            <li><a href="#services" class="hover:text-brand-yellow transition">Product UI</a></li>
+            <li><a href="#services" class="hover:text-brand-yellow transition">Design Systems</a></li>
+            <li><a href="#services" class="hover:text-brand-yellow transition">Sprint Engagements</a></li>
+            <li><a href="#built-for" class="hover:text-brand-yellow transition">For AI Startups</a></li>
+          </ul>
+        </div>
+        <div>
+          <div class="text-xs font-mono uppercase tracking-widest text-bone-300 mb-4">Studio</div>
+          <ul class="space-y-2.5 text-sm">
+            <li><a href="#process" class="hover:text-brand-yellow transition">Process</a></li>
+            <li><a href="#faq" class="hover:text-brand-yellow transition">FAQ</a></li>
+            <li><a href="#contact" class="hover:text-brand-yellow transition">Contact</a></li>
+          </ul>
+        </div>
+        <div>
+          <div class="text-xs font-mono uppercase tracking-widest text-bone-300 mb-4">Company</div>
+          <ul class="space-y-2.5 text-sm">
+            <li><a href="#" class="hover:text-brand-yellow transition">About</a></li>
+            <li><a href="#" class="hover:text-brand-yellow transition">Careers</a></li>
+            <li><a href="mailto:hello@gridwisedesigns.com" class="hover:text-brand-yellow transition">hello@gridwisedesigns.com</a></li>
+          </ul>
+        </div>
+        <div>
+          <div class="text-xs font-mono uppercase tracking-widest text-bone-300 mb-4">Legal</div>
+          <ul class="space-y-2.5 text-sm">
+            <li><a href="#" class="hover:text-brand-yellow transition">Terms</a></li>
+            <li><a href="#" class="hover:text-brand-yellow transition">Privacy</a></li>
+            <li><a href="#" class="hover:text-brand-yellow transition">DPA</a></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <!-- Bottom bar -->
+    <div class="mt-20 md:mt-28 pt-6 border-t border-ink-600 flex flex-col md:flex-row justify-between gap-3 text-xs font-mono text-bone-300">
+      <span>Â© 2026 Gridwise Design. All rights reserved.</span>
+      <span class="text-bone-200">gridwisedesigns.com</span>
+    </div>
+  </div>
+</footer>
+
+<script>
+  // -------- Tabs --------
+  (function () {
+    var tabs = document.querySelectorAll('#builtFor-tabs [data-tab]');
+    var panels = document.querySelectorAll('[data-panel]');
+    tabs.forEach(function (btn) {
+      btn.addEventListener('click', function () {
+        var key = btn.getAttribute('data-tab');
+        tabs.forEach(function (b) {
+          b.setAttribute('aria-selected', b === btn ? 'true' : 'false');
+        });
+        panels.forEach(function (p) {
+          if (p.getAttribute('data-panel') === key) {
+            p.classList.remove('hidden');
+          } else {
+            p.classList.add('hidden');
+          }
+        });
+      });
+    });
+  })();
+
+  // -------- Interactions --------
+  (function () {
+    var reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    if (reduced) return;
+
+    // Scroll reveal â€” auto-attach to headings, cards, articles, FAQ items
+    var targets = Array.from(document.querySelectorAll(
+      'h1, section h2, section h3, ' +
+      'section .rounded-xl:not(.icon-tile), section .rounded-2xl, ' +
+      'section article, section details, ' +
+      'section .grid > .bg-ink-900'
+    ));
+    targets.forEach(function (el) { el.classList.add('reveal'); });
+
+    // Stagger inside grids
+    document.querySelectorAll('section .grid').forEach(function (grid) {
+      Array.prototype.forEach.call(grid.children, function (child, i) {
+        if (child.classList.contains('reveal')) {
+          child.style.transitionDelay = Math.min(i, 6) * 80 + 'ms';
+        }
+      });
+    });
+
+    var io = new IntersectionObserver(function (entries) {
+      entries.forEach(function (e) {
+        if (e.isIntersecting) {
+          e.target.classList.add('in');
+          io.unobserve(e.target);
+        }
+      });
+    }, { rootMargin: '0px 0px -6% 0px', threshold: 0.05 });
+    targets.forEach(function (el) { io.observe(el); });
+
+    // Hero cursor spotlight
+    var hero = document.querySelector('[data-spotlight]');
+    if (hero) {
+      hero.classList.add('spotlight');
+      hero.addEventListener('mouseenter', function () { hero.classList.add('is-active'); });
+      hero.addEventListener('mouseleave', function () { hero.classList.remove('is-active'); });
+      hero.addEventListener('mousemove', function (e) {
+        var r = hero.getBoundingClientRect();
+        hero.style.setProperty('--mx', (e.clientX - r.left) + 'px');
+        hero.style.setProperty('--my', (e.clientY - r.top) + 'px');
+      });
+    }
+
+    // Magnetic primary CTAs (only large yellow buttons)
+    document.querySelectorAll('a.bg-brand-yellow').forEach(function (btn) {
+      if (!btn.classList.contains('px-6')) return;
+      btn.classList.add('magnetic');
+      btn.addEventListener('mousemove', function (e) {
+        var r = btn.getBoundingClientRect();
+        var x = (e.clientX - r.left - r.width / 2) * 0.22;
+        var y = (e.clientY - r.top - r.height / 2) * 0.22;
+        btn.style.transform = 'translate(' + x.toFixed(1) + 'px, ' + y.toFixed(1) + 'px)';
+      });
+      btn.addEventListener('mouseleave', function () {
+        btn.style.transform = '';
+      });
+    });
+
+    // Card cursor glow â€” services, why grid, work cards
+    var glowables = document.querySelectorAll(
+      '#services .rounded-xl, #built-for .rounded-2xl, #work article, #process .rounded-xl, ' +
+      'section .rounded-xl.border'
+    );
+    glowables.forEach(function (card) {
+      card.classList.add('card-glow');
+      card.addEventListener('mousemove', function (e) {
+        var r = card.getBoundingClientRect();
+        card.style.setProperty('--cx', (e.clientX - r.left) + 'px');
+        card.style.setProperty('--cy', (e.clientY - r.top) + 'px');
+      });
+    });
+
+    // Animated underlines for nav + footer links
+    document.querySelectorAll('header nav a, footer a[href^="#"], footer a[href^="mailto"]').forEach(function (a) {
+      a.classList.add('link-underline');
+    });
+
+    // Smooth-scroll on hash links (with offset for sticky nav)
+    document.querySelectorAll('a[href^="#"]').forEach(function (a) {
+      a.addEventListener('click', function (e) {
+        var id = a.getAttribute('href');
+        if (id.length < 2) return;
+        var target = document.querySelector(id);
+        if (!target) return;
+        e.preventDefault();
+        var top = target.getBoundingClientRect().top + window.scrollY - 70;
+        window.scrollTo({ top: top, behavior: 'smooth' });
+      });
+    });
+  })();
+</script>
+
+</body>
+</html>
