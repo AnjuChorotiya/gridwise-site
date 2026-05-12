@@ -3,10 +3,10 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>Success Stories — Gridwise</title>
-<meta name="description" content="Real product UI, dashboards, and design systems Gridwise has shipped for SaaS and AI startups." />
-<meta property="og:title" content="Success Stories — Gridwise" />
-<meta property="og:description" content="Real product UI, dashboards, and design systems we've shipped for SaaS and AI startups." />
+<title>Blog — Gridwise</title>
+<meta name="description" content="Notes, lessons, and field reports on product UI for SaaS and AI startups. From the team at Gridwise." />
+<meta property="og:title" content="Blog — Gridwise" />
+<meta property="og:description" content="Notes, lessons, and field reports on product UI for SaaS and AI startups." />
 <meta property="og:type" content="website" />
 <meta property="og:url" content="https://gridwisedesigns.com/success-stories" />
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='6' fill='%23FFD60A'/%3E%3Cpath d='M9 9h6v6H9zM17 9h6v6h-6zM9 17h6v6H9zM17 17h6v6h-6z' fill='%230A0A0A'/%3E%3C/svg%3E" />
@@ -72,19 +72,16 @@
       linear-gradient(to bottom, #000 0%, #000 60%, transparent 100%);
             mask-composite: intersect;
   }
-  .bar {
-    background: linear-gradient(90deg, #1F1F1F 0%, #2A2A2A 50%, #1F1F1F 100%);
-    background-size: 200% 100%;
-    animation: shimmer 2.4s linear infinite;
-  }
-  @keyframes shimmer { 0% { background-position: 0% 0; } 100% { background-position: -200% 0; } }
-  .reveal { opacity: 0; transform: translateY(28px); transition: opacity .8s cubic-bezier(.16,1,.3,1), transform .8s cubic-bezier(.16,1,.3,1); }
+  .reveal { opacity: 0; transform: translateY(20px); transition: opacity .7s cubic-bezier(.16,1,.3,1), transform .7s cubic-bezier(.16,1,.3,1); }
   .reveal.in { opacity: 1; transform: none; }
   @media (prefers-reduced-motion: reduce) {
     .reveal { opacity: 1; transform: none; transition: none; }
-    .bar { animation: none; }
     html { scroll-behavior: auto; }
   }
+  .post-link { transition: color .2s ease; }
+  .post-link:hover .post-title { color: #FFD60A; }
+  .post-link:hover .arrow { transform: translate(2px, -2px); color: #FFD60A; }
+  .arrow { transition: transform .25s cubic-bezier(.16,1,.3,1), color .2s ease; }
 </style>
 </head>
 <body class="bg-ink-900 text-bone-50">
@@ -113,7 +110,7 @@
       <a href="/#services" class="hover:text-brand-yellow transition">Services</a>
       <a href="/#built-for" class="hover:text-brand-yellow transition">Built for</a>
       <a href="/#process" class="hover:text-brand-yellow transition">Process</a>
-      <a href="/success-stories" class="text-brand-yellow">Success Stories</a>
+      <a href="/success-stories" class="text-brand-yellow">Blog</a>
       <a href="/#faq" class="hover:text-brand-yellow transition">FAQ</a>
     </nav>
     <a href="/#contact" class="px-5 py-2 rounded-full bg-brand-yellow text-ink-900 font-semibold text-sm hover:bg-brand-yellowHover transition flex items-center gap-1.5">
@@ -125,233 +122,191 @@
 
 <!-- HERO -->
 <section class="relative overflow-hidden border-b border-ink-600">
-  <div class="absolute inset-x-0 top-0 h-[460px] grid-bg grid-bg-fade pointer-events-none"></div>
-  <div class="absolute inset-x-0 top-0 h-[600px] bg-[radial-gradient(ellipse_at_top,rgba(255,214,10,0.18),transparent_60%)] pointer-events-none"></div>
-  <div class="relative max-w-7xl mx-auto px-6 py-20 md:py-28">
-    <div class="font-mono text-xs uppercase tracking-[0.2em] text-brand-yellow">// Success Stories</div>
-    <h1 class="mt-4 font-display font-bold text-4xl md:text-6xl lg:text-7xl tracking-[-0.04em] leading-[1.02] max-w-4xl">
-      <span class="text-bone-50">Real product design.</span><br/>
-      <span class="text-bone-50">Shipped, <span class="text-brand-yellow">not pitched.</span></span>
+  <div class="absolute inset-x-0 top-0 h-[400px] grid-bg grid-bg-fade pointer-events-none"></div>
+  <div class="absolute inset-x-0 top-0 h-[500px] bg-[radial-gradient(ellipse_at_top,rgba(255,214,10,0.16),transparent_60%)] pointer-events-none"></div>
+  <div class="relative max-w-4xl mx-auto px-6 py-20 md:py-24">
+    <div class="font-mono text-xs uppercase tracking-[0.2em] text-brand-yellow">// Gridwise blog</div>
+    <h1 class="mt-4 font-display font-bold text-4xl md:text-6xl tracking-[-0.04em] leading-[1.02]">
+      Notes from <span class="text-brand-yellow">the studio.</span>
     </h1>
-    <p class="mt-8 text-base text-bone-200 max-w-2xl leading-relaxed">
-      A selection of recent dashboards, design systems, and product flows we've shipped for <span class="text-bone-50 font-medium">SaaS and AI startups</span> — each delivered in a focused 2-week sprint or partner engagement.
+    <p class="mt-6 text-base text-bone-200 max-w-2xl leading-relaxed">
+      Field reports, design teardowns, and process notes on shipping product UI for SaaS and AI startups. Written by the senior designers who actually ship the work.
     </p>
-    <div class="mt-8 flex items-center gap-4 text-sm font-mono text-bone-300">
-      <span><span class="text-brand-yellow font-semibold">50+</span> projects shipped</span>
+    <div class="mt-7 flex items-center gap-4 text-xs font-mono text-bone-300">
+      <span><span class="text-brand-yellow font-semibold">6</span> posts</span>
       <span class="h-3 w-px bg-ink-500"></span>
-      <span><span class="text-brand-yellow font-semibold">2-week</span> avg sprint</span>
+      <span>Updated weekly</span>
       <span class="h-3 w-px bg-ink-500"></span>
-      <span><span class="text-brand-yellow font-semibold">5.0</span> founder rating</span>
+      <span>RSS coming soon</span>
     </div>
   </div>
 </section>
 
-<!-- CASE STUDIES GRID -->
-<section class="py-20 md:py-28">
-  <div class="max-w-7xl mx-auto px-6">
+<!-- FEATURED POST -->
+<section class="py-14 md:py-20 border-b border-ink-600">
+  <div class="max-w-5xl mx-auto px-6">
+    <div class="font-mono text-xs uppercase tracking-[0.2em] text-brand-yellow mb-6">[ Latest ]</div>
 
-    <!-- Filter eyebrow -->
-    <div class="flex flex-col md:flex-row md:items-end md:justify-between gap-6 mb-12">
+    <a href="#" class="post-link block group">
+      <article class="rounded-2xl border border-ink-600 bg-ink-900 overflow-hidden hover:border-brand-yellow/50 transition">
+        <div class="grid md:grid-cols-5">
+          <!-- Cover area -->
+          <div class="md:col-span-2 aspect-[16/10] md:aspect-auto bg-ink-800 relative overflow-hidden border-b md:border-b-0 md:border-r border-ink-600">
+            <div class="absolute inset-0 grid-bg opacity-50 pointer-events-none"></div>
+            <div class="relative h-full flex items-center justify-center p-8">
+              <div class="font-serif text-7xl md:text-8xl font-bold text-brand-yellow italic leading-none">01</div>
+            </div>
+          </div>
+          <!-- Content -->
+          <div class="md:col-span-3 p-7 md:p-10">
+            <div class="flex flex-wrap items-center gap-3 text-xs font-mono text-bone-300">
+              <span class="px-2.5 py-1 rounded-full bg-brand-yellow/15 border border-brand-yellow/40 text-brand-yellow uppercase tracking-widest">Dashboard UX</span>
+              <span>May 12, 2026</span>
+              <span class="h-3 w-px bg-ink-500"></span>
+              <span>6 min read</span>
+            </div>
+            <h2 class="post-title mt-4 font-display text-2xl md:text-3xl font-bold tracking-tight leading-tight">
+              Why your AI dashboard isn't converting — and 5 fixes from real client work.
+            </h2>
+            <p class="mt-4 text-bone-200 leading-relaxed">
+              Most AI startup dashboards bury the action that proves the product works. We break down 5 specific patterns we've fixed across recent client sprints — from agent health scores to inference cost summaries — and why each one moved activation.
+            </p>
+            <div class="mt-6 flex items-center justify-between">
+              <div class="flex items-center gap-3">
+                <img src="photo3.jpeg" alt="Anju" class="w-8 h-8 rounded-full object-cover border border-ink-500" />
+                <span class="text-sm">
+                  <span class="block text-bone-50 font-semibold leading-tight">Anju</span>
+                  <span class="block text-xs text-bone-300">Founder, Gridwise</span>
+                </span>
+              </div>
+              <span class="text-brand-yellow font-semibold text-sm inline-flex items-center gap-1.5 arrow">
+                Read post
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17 17 7M7 7h10v10"/></svg>
+              </span>
+            </div>
+          </div>
+        </div>
+      </article>
+    </a>
+  </div>
+</section>
+
+<!-- POST LIST -->
+<section class="py-14 md:py-20">
+  <div class="max-w-5xl mx-auto px-6">
+
+    <!-- Section header + filter -->
+    <div class="flex flex-col md:flex-row md:items-end md:justify-between gap-4 mb-10">
       <div>
-        <div class="text-xs font-mono uppercase tracking-[0.2em] text-brand-yellow">[ Selected work ]</div>
-        <h2 class="mt-3 font-display text-3xl md:text-4xl font-bold tracking-tight">Recent engagements</h2>
+        <div class="font-mono text-xs uppercase tracking-[0.2em] text-brand-yellow">[ All posts ]</div>
+        <h2 class="mt-3 font-display text-2xl md:text-3xl font-bold tracking-tight">Recent writing</h2>
       </div>
-      <p class="text-bone-300 text-sm max-w-md">Each card links to a deeper case study. Want the full Figma walkthrough? <a href="/#contact" class="text-brand-yellow hover:underline">Ask for it →</a></p>
+      <div class="flex items-center gap-2 flex-wrap">
+        <button class="px-3 py-1.5 rounded-full bg-ink-800 border border-brand-yellow/40 text-xs font-mono text-brand-yellow">All</button>
+        <button class="px-3 py-1.5 rounded-full bg-ink-800 border border-ink-500 text-xs font-mono text-bone-300 hover:border-brand-yellow hover:text-brand-yellow transition">Process</button>
+        <button class="px-3 py-1.5 rounded-full bg-ink-800 border border-ink-500 text-xs font-mono text-bone-300 hover:border-brand-yellow hover:text-brand-yellow transition">Design Systems</button>
+        <button class="px-3 py-1.5 rounded-full bg-ink-800 border border-ink-500 text-xs font-mono text-bone-300 hover:border-brand-yellow hover:text-brand-yellow transition">AI UX</button>
+      </div>
     </div>
 
-    <div class="grid md:grid-cols-2 gap-5">
+    <!-- Post list (compact) -->
+    <div class="divide-y divide-ink-600 border-t border-b border-ink-600">
 
-      <!-- Case 1: Operator Console -->
-      <article class="group rounded-2xl border border-ink-600 bg-ink-900 overflow-hidden hover:border-brand-yellow/50 transition">
-        <div class="aspect-[16/10] bg-ink-800 relative overflow-hidden">
-          <div class="absolute inset-6 rounded-lg border border-ink-500 bg-ink-900 p-4 grid grid-cols-6 gap-2">
-            <div class="col-span-2 space-y-1.5">
-              <div class="h-2 bar rounded"></div>
-              <div class="h-7 bg-brand-yellow/20 border border-brand-yellow/40 rounded flex items-center px-2"><span class="text-[8px] font-mono text-brand-yellow">Agents</span></div>
-              <div class="h-7 bg-ink-700 rounded"></div>
-              <div class="h-7 bg-ink-700 rounded"></div>
-            </div>
-            <div class="col-span-4 space-y-2">
-              <div class="grid grid-cols-3 gap-2">
-                <div class="h-12 bg-ink-700 rounded border border-ink-500"></div>
-                <div class="h-12 bg-ink-700 rounded border border-ink-500"></div>
-                <div class="h-12 bg-brand-yellow/20 rounded border border-brand-yellow/40"></div>
-              </div>
-              <div class="h-20 bg-ink-700 rounded border border-ink-500 relative">
-                <div class="absolute inset-x-2 bottom-2 h-10 flex items-end gap-0.5">
-                  <div class="flex-1 bg-brand-yellow rounded-t" style="height:60%"></div>
-                  <div class="flex-1 bg-brand-yellow rounded-t" style="height:80%"></div>
-                  <div class="flex-1 bg-brand-yellow rounded-t" style="height:45%"></div>
-                  <div class="flex-1 bg-brand-yellow rounded-t" style="height:90%"></div>
-                  <div class="flex-1 bg-brand-yellow rounded-t" style="height:70%"></div>
-                  <div class="flex-1 bg-brand-yellow rounded-t" style="height:55%"></div>
-                </div>
-              </div>
-            </div>
-          </div>
+      <a href="#" class="post-link block py-7 grid md:grid-cols-12 gap-5 items-start">
+        <div class="md:col-span-2 font-mono text-xs text-bone-300">
+          <div>May 9, 2026</div>
+          <div class="mt-1 text-bone-50 font-semibold">4 min</div>
         </div>
-        <div class="p-7 border-t border-ink-600">
-          <div class="flex items-center justify-between text-xs font-mono text-bone-300 uppercase tracking-widest">
-            <span>AI Agents · Series A</span>
-            <span class="text-brand-yellow">2-week sprint</span>
-          </div>
-          <h3 class="mt-3 font-display text-2xl font-bold">Operator Console for an autonomous agent platform</h3>
-          <p class="mt-2 text-bone-200">Designed an operator-facing dashboard that turned a developer-only API into a product non-engineers could trust and demo. Activation up <span class="text-brand-yellow font-semibold">2.4×</span> post-launch.</p>
-          <div class="mt-5 flex flex-wrap gap-2">
-            <span class="px-2.5 py-1 rounded-full bg-ink-700 border border-ink-500 text-xs font-mono text-bone-200">Dashboard</span>
-            <span class="px-2.5 py-1 rounded-full bg-ink-700 border border-ink-500 text-xs font-mono text-bone-200">Design system</span>
-            <span class="px-2.5 py-1 rounded-full bg-ink-700 border border-ink-500 text-xs font-mono text-bone-200">Eval views</span>
-          </div>
+        <div class="md:col-span-7">
+          <div class="text-xs font-mono uppercase tracking-widest text-brand-yellow">Process</div>
+          <h3 class="post-title mt-2 font-display text-xl md:text-2xl font-bold tracking-tight">The 2-week sprint method: how we ship product UI in 10 working days.</h3>
+          <p class="mt-3 text-sm text-bone-200 leading-relaxed">A day-by-day breakdown of how we structure focused product-design sprints, what we cut, and the 3 places most agencies waste a month.</p>
         </div>
-      </article>
-
-      <!-- Case 2: Compliance Workspace -->
-      <article class="group rounded-2xl border border-ink-600 bg-ink-900 overflow-hidden hover:border-brand-yellow/50 transition">
-        <div class="aspect-[16/10] bg-ink-800 relative overflow-hidden">
-          <div class="absolute inset-6 rounded-lg border border-ink-500 bg-ink-900 p-4">
-            <div class="flex items-center justify-between">
-              <div class="h-2 w-24 bar rounded"></div>
-              <div class="flex gap-1.5">
-                <div class="w-6 h-6 rounded bg-ink-700"></div>
-                <div class="w-6 h-6 rounded bg-brand-yellow"></div>
-              </div>
-            </div>
-            <div class="mt-3 grid grid-cols-4 gap-2">
-              <div class="h-14 bg-ink-700 rounded border border-ink-500"></div>
-              <div class="h-14 bg-ink-700 rounded border border-ink-500"></div>
-              <div class="h-14 bg-ink-700 rounded border border-ink-500"></div>
-              <div class="h-14 bg-ink-700 rounded border border-ink-500"></div>
-            </div>
-            <div class="mt-2 h-24 bg-ink-700 rounded border border-ink-500 p-2 space-y-1">
-              <div class="h-2 w-3/4 bar rounded"></div>
-              <div class="h-2 w-1/2 bar rounded"></div>
-              <div class="h-2 w-2/3 bar rounded"></div>
-              <div class="h-2 w-1/3 bar rounded"></div>
-              <div class="h-2 w-3/5 bar rounded"></div>
-            </div>
-          </div>
+        <div class="md:col-span-3 flex md:justify-end items-start">
+          <span class="text-brand-yellow font-semibold text-sm inline-flex items-center gap-1.5 arrow">
+            Read
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17 17 7M7 7h10v10"/></svg>
+          </span>
         </div>
-        <div class="p-7 border-t border-ink-600">
-          <div class="flex items-center justify-between text-xs font-mono text-bone-300 uppercase tracking-widest">
-            <span>Vertical SaaS · Seed</span>
-            <span class="text-brand-yellow">Partner retainer</span>
-          </div>
-          <h3 class="mt-3 font-display text-2xl font-bold">Compliance workspace for a regulated-industry SaaS</h3>
-          <p class="mt-2 text-bone-200">Replaced a sprawling internal tool with a focused, dense workspace. Reduced average task time by <span class="text-brand-yellow font-semibold">38%</span> across the customer base.</p>
-          <div class="mt-5 flex flex-wrap gap-2">
-            <span class="px-2.5 py-1 rounded-full bg-ink-700 border border-ink-500 text-xs font-mono text-bone-200">Workflow UX</span>
-            <span class="px-2.5 py-1 rounded-full bg-ink-700 border border-ink-500 text-xs font-mono text-bone-200">Tables &amp; data</span>
-            <span class="px-2.5 py-1 rounded-full bg-ink-700 border border-ink-500 text-xs font-mono text-bone-200">Audit logs</span>
-          </div>
-        </div>
-      </article>
-
-      <!-- Case 3: AI Dev Tool Onboarding -->
-      <article class="group rounded-2xl border border-ink-600 bg-ink-900 overflow-hidden hover:border-brand-yellow/50 transition">
-        <div class="aspect-[16/10] bg-ink-800 relative overflow-hidden">
-          <div class="absolute inset-6 rounded-lg border border-ink-500 bg-ink-900 p-4 grid grid-cols-6 gap-3">
-            <div class="col-span-1 space-y-1.5">
-              <div class="aspect-square rounded bg-brand-yellow/20 border border-brand-yellow/40"></div>
-              <div class="aspect-square rounded bg-ink-700"></div>
-              <div class="aspect-square rounded bg-ink-700"></div>
-              <div class="aspect-square rounded bg-ink-700"></div>
-            </div>
-            <div class="col-span-5 space-y-2">
-              <div class="h-3 w-1/3 bar rounded"></div>
-              <div class="h-2 w-1/2 bar rounded"></div>
-              <div class="grid grid-cols-2 gap-2 mt-3">
-                <div class="rounded border border-ink-500 bg-ink-700 p-2 space-y-1">
-                  <div class="h-2 w-1/2 bar rounded"></div>
-                  <div class="h-6 w-full bg-brand-yellow/30 rounded"></div>
-                </div>
-                <div class="rounded border border-ink-500 bg-ink-700 p-2 space-y-1">
-                  <div class="h-2 w-1/2 bar rounded"></div>
-                  <div class="h-6 w-3/4 bg-ink-500 rounded"></div>
-                </div>
-                <div class="rounded border border-ink-500 bg-ink-700 p-2 space-y-1">
-                  <div class="h-2 w-2/3 bar rounded"></div>
-                  <div class="h-6 w-2/3 bg-ink-500 rounded"></div>
-                </div>
-                <div class="rounded border border-ink-500 bg-ink-700 p-2 space-y-1">
-                  <div class="h-2 w-1/3 bar rounded"></div>
-                  <div class="h-6 w-full bg-brand-yellow/30 rounded"></div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="p-7 border-t border-ink-600">
-          <div class="flex items-center justify-between text-xs font-mono text-bone-300 uppercase tracking-widest">
-            <span>Developer Tool · Pre-seed</span>
-            <span class="text-brand-yellow">2-week sprint</span>
-          </div>
-          <h3 class="mt-3 font-display text-2xl font-bold">Onboarding flow for an AI dev tool</h3>
-          <p class="mt-2 text-bone-200">Replaced a 14-step wizard with a focused 3-step onboarding. Time-to-first-value dropped from <span class="text-brand-yellow font-semibold">22 minutes to under 4</span>.</p>
-          <div class="mt-5 flex flex-wrap gap-2">
-            <span class="px-2.5 py-1 rounded-full bg-ink-700 border border-ink-500 text-xs font-mono text-bone-200">Onboarding</span>
-            <span class="px-2.5 py-1 rounded-full bg-ink-700 border border-ink-500 text-xs font-mono text-bone-200">Activation UX</span>
-            <span class="px-2.5 py-1 rounded-full bg-ink-700 border border-ink-500 text-xs font-mono text-bone-200">CLI companion</span>
-          </div>
-        </div>
-      </article>
-
-      <!-- Case 4: Fintech Design System -->
-      <article class="group rounded-2xl border border-ink-600 bg-ink-900 overflow-hidden hover:border-brand-yellow/50 transition">
-        <div class="aspect-[16/10] bg-ink-800 relative overflow-hidden">
-          <div class="absolute inset-6 rounded-lg border border-ink-500 bg-ink-900 p-4">
-            <div class="flex items-center gap-2 mb-3">
-              <div class="h-2 w-16 bar rounded"></div>
-              <span class="text-[8px] font-mono text-brand-yellow">v2.0</span>
-            </div>
-            <div class="grid grid-cols-5 gap-2">
-              <div class="aspect-square rounded-full bg-brand-yellow"></div>
-              <div class="aspect-square rounded-full bg-ink-500"></div>
-              <div class="aspect-square rounded-full bg-bone-200"></div>
-              <div class="aspect-square rounded-full bg-ink-700 border border-ink-500"></div>
-              <div class="aspect-square rounded-full bg-ink-700 border border-ink-500"></div>
-            </div>
-            <div class="mt-3 grid grid-cols-4 gap-1.5">
-              <div class="h-6 rounded bg-brand-yellow"></div>
-              <div class="h-6 rounded bg-ink-700 border border-ink-500"></div>
-              <div class="h-6 rounded bg-ink-700 border border-ink-500"></div>
-              <div class="h-6 rounded bg-ink-700 border border-ink-500"></div>
-            </div>
-            <div class="mt-2 grid grid-cols-3 gap-1.5">
-              <div class="h-3 bar rounded"></div>
-              <div class="h-3 bar rounded"></div>
-              <div class="h-3 bar rounded"></div>
-              <div class="h-3 bar rounded"></div>
-              <div class="h-3 bar rounded"></div>
-              <div class="h-3 bar rounded"></div>
-            </div>
-          </div>
-        </div>
-        <div class="p-7 border-t border-ink-600">
-          <div class="flex items-center justify-between text-xs font-mono text-bone-300 uppercase tracking-widest">
-            <span>Fintech · Series A</span>
-            <span class="text-brand-yellow">Partner — 3 months</span>
-          </div>
-          <h3 class="mt-3 font-display text-2xl font-bold">Token-driven design system for a fintech dashboard</h3>
-          <p class="mt-2 text-bone-200">Built a token-based system with <span class="text-brand-yellow font-semibold">100+ components</span>, full light/dark theme, and engineering-ready Figma libraries shipped in Tailwind tokens.</p>
-          <div class="mt-5 flex flex-wrap gap-2">
-            <span class="px-2.5 py-1 rounded-full bg-ink-700 border border-ink-500 text-xs font-mono text-bone-200">Design system</span>
-            <span class="px-2.5 py-1 rounded-full bg-ink-700 border border-ink-500 text-xs font-mono text-bone-200">Tokens</span>
-            <span class="px-2.5 py-1 rounded-full bg-ink-700 border border-ink-500 text-xs font-mono text-bone-200">Dark mode</span>
-          </div>
-        </div>
-      </article>
-
-    </div>
-
-    <!-- More coming soon block -->
-    <div class="mt-12 rounded-2xl border border-dashed border-ink-500 bg-ink-900/50 p-8 md:p-12 text-center">
-      <div class="font-mono text-xs uppercase tracking-[0.2em] text-bone-300">// More case studies in progress</div>
-      <h3 class="mt-3 font-display text-2xl md:text-3xl font-bold">Want the full Figma file or a deeper teardown?</h3>
-      <p class="mt-3 text-bone-200 max-w-xl mx-auto">We share complete process docs, design tokens, and Loom walkthroughs with shortlisted founders. Ask for them on your first call.</p>
-      <a href="/#contact" class="mt-6 inline-flex px-6 py-3 rounded-full bg-brand-yellow text-ink-900 font-semibold hover:bg-brand-yellowHover transition items-center gap-2">
-        Request access
-        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 5l7 7-7 7"/></svg>
       </a>
+
+      <a href="#" class="post-link block py-7 grid md:grid-cols-12 gap-5 items-start">
+        <div class="md:col-span-2 font-mono text-xs text-bone-300">
+          <div>May 2, 2026</div>
+          <div class="mt-1 text-bone-50 font-semibold">8 min</div>
+        </div>
+        <div class="md:col-span-7">
+          <div class="text-xs font-mono uppercase tracking-widest text-brand-yellow">Design Systems</div>
+          <h3 class="post-title mt-2 font-display text-xl md:text-2xl font-bold tracking-tight">Design systems for AI startups: what to build before Series A.</h3>
+          <p class="mt-3 text-sm text-bone-200 leading-relaxed">The minimum token set, component library, and documentation depth that pays off in product velocity — and the over-engineering trap most teams fall into.</p>
+        </div>
+        <div class="md:col-span-3 flex md:justify-end items-start">
+          <span class="text-brand-yellow font-semibold text-sm inline-flex items-center gap-1.5 arrow">
+            Read
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17 17 7M7 7h10v10"/></svg>
+          </span>
+        </div>
+      </a>
+
+      <a href="#" class="post-link block py-7 grid md:grid-cols-12 gap-5 items-start">
+        <div class="md:col-span-2 font-mono text-xs text-bone-300">
+          <div>Apr 25, 2026</div>
+          <div class="mt-1 text-bone-50 font-semibold">5 min</div>
+        </div>
+        <div class="md:col-span-7">
+          <div class="text-xs font-mono uppercase tracking-widest text-brand-yellow">Activation UX</div>
+          <h3 class="post-title mt-2 font-display text-xl md:text-2xl font-bold tracking-tight">Onboarding for AI dev tools: from 14 steps to 3.</h3>
+          <p class="mt-3 text-sm text-bone-200 leading-relaxed">A teardown of a recent client's onboarding rebuild — including the cuts that scared the founder, and why time-to-first-value dropped from 22 min to under 4.</p>
+        </div>
+        <div class="md:col-span-3 flex md:justify-end items-start">
+          <span class="text-brand-yellow font-semibold text-sm inline-flex items-center gap-1.5 arrow">
+            Read
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17 17 7M7 7h10v10"/></svg>
+          </span>
+        </div>
+      </a>
+
+      <a href="#" class="post-link block py-7 grid md:grid-cols-12 gap-5 items-start">
+        <div class="md:col-span-2 font-mono text-xs text-bone-300">
+          <div>Apr 18, 2026</div>
+          <div class="mt-1 text-bone-50 font-semibold">7 min</div>
+        </div>
+        <div class="md:col-span-7">
+          <div class="text-xs font-mono uppercase tracking-widest text-brand-yellow">AI UX</div>
+          <h3 class="post-title mt-2 font-display text-xl md:text-2xl font-bold tracking-tight">Designing operator consoles for autonomous agents.</h3>
+          <p class="mt-3 text-sm text-bone-200 leading-relaxed">When the user isn't the agent, what should they see? Notes on traces, eval surfaces, and the trust gap that breaks demos.</p>
+        </div>
+        <div class="md:col-span-3 flex md:justify-end items-start">
+          <span class="text-brand-yellow font-semibold text-sm inline-flex items-center gap-1.5 arrow">
+            Read
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17 17 7M7 7h10v10"/></svg>
+          </span>
+        </div>
+      </a>
+
+      <a href="#" class="post-link block py-7 grid md:grid-cols-12 gap-5 items-start">
+        <div class="md:col-span-2 font-mono text-xs text-bone-300">
+          <div>Apr 11, 2026</div>
+          <div class="mt-1 text-bone-50 font-semibold">4 min</div>
+        </div>
+        <div class="md:col-span-7">
+          <div class="text-xs font-mono uppercase tracking-widest text-brand-yellow">Handoff</div>
+          <h3 class="post-title mt-2 font-display text-xl md:text-2xl font-bold tracking-tight">Engineering-ready handoff: tokens, Loom, and what to skip.</h3>
+          <p class="mt-3 text-sm text-bone-200 leading-relaxed">The actual handoff pack we deliver — what engineers use daily vs. the deliverables agencies fluff up and no one opens. Plus our Loom recipe.</p>
+        </div>
+        <div class="md:col-span-3 flex md:justify-end items-start">
+          <span class="text-brand-yellow font-semibold text-sm inline-flex items-center gap-1.5 arrow">
+            Read
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17 17 7M7 7h10v10"/></svg>
+          </span>
+        </div>
+      </a>
+
+    </div>
+
+    <!-- More coming -->
+    <div class="mt-10 text-center text-sm font-mono text-bone-300">
+      That's all for now. New posts ship most weeks — <a href="/#contact" class="text-brand-yellow hover:underline">subscribe via email</a> to get them in your inbox.
     </div>
 
   </div>
@@ -362,10 +317,10 @@
   <div class="absolute inset-x-0 top-1/2 -translate-y-1/2 h-[400px] bg-[radial-gradient(ellipse_at_center,rgba(255,214,10,0.12),transparent_60%)] pointer-events-none"></div>
   <div class="relative max-w-4xl mx-auto px-6 text-center">
     <h2 class="font-display text-4xl md:text-6xl font-bold tracking-tight leading-[0.95]">
-      <span class="text-bone-50">Your product UI,</span><br/>
-      <span class="text-brand-yellow">shipped next sprint.</span>
+      <span class="text-bone-50">Reading is great.</span><br/>
+      <span class="text-brand-yellow">Shipping is better.</span>
     </h2>
-    <p class="mt-8 text-lg text-bone-200 max-w-xl mx-auto">Tell us about your product. We'll come back within one business day with a clear next step.</p>
+    <p class="mt-8 text-lg text-bone-200 max-w-xl mx-auto">If anything here resonates, send us a note. We'll come back within one business day.</p>
     <div class="mt-10 flex flex-col sm:flex-row gap-3 justify-center">
       <a href="/#contact" class="px-6 py-3.5 rounded-full bg-brand-yellow text-ink-900 font-semibold hover:bg-brand-yellowHover transition flex items-center justify-center gap-2">
         Start a sprint
@@ -422,7 +377,7 @@
           <div class="text-xs font-mono uppercase tracking-widest text-bone-300 mb-4">Studio</div>
           <ul class="space-y-2.5 text-sm">
             <li><a href="/#process" class="hover:text-brand-yellow transition">Process</a></li>
-            <li><a href="/success-stories" class="hover:text-brand-yellow transition">Success Stories</a></li>
+            <li><a href="/success-stories" class="hover:text-brand-yellow transition">Blog</a></li>
             <li><a href="/#faq" class="hover:text-brand-yellow transition">FAQ</a></li>
             <li><a href="/#contact" class="hover:text-brand-yellow transition">Contact</a></li>
           </ul>
@@ -456,7 +411,7 @@
 <script>
   (function () {
     if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
-    var targets = Array.from(document.querySelectorAll('h1, h2, h3, section article, section .rounded-2xl'));
+    var targets = Array.from(document.querySelectorAll('h1, h2, h3, section article, section .post-link'));
     targets.forEach(function (el) { el.classList.add('reveal'); });
     var io = new IntersectionObserver(function (entries) {
       entries.forEach(function (e) {
@@ -467,19 +422,6 @@
       });
     }, { rootMargin: '0px 0px -6% 0px', threshold: 0.05 });
     targets.forEach(function (el) { io.observe(el); });
-
-    document.querySelectorAll('a[href^="#"], a[href^="/#"]').forEach(function (a) {
-      a.addEventListener('click', function (e) {
-        var href = a.getAttribute('href');
-        if (href.indexOf('/#') === 0) return;
-        if (href.length < 2) return;
-        var target = document.querySelector(href);
-        if (!target) return;
-        e.preventDefault();
-        var top = target.getBoundingClientRect().top + window.scrollY - 70;
-        window.scrollTo({ top: top, behavior: 'smooth' });
-      });
-    });
   })();
 </script>
 
