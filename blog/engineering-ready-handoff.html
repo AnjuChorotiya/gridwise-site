@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Engineering-ready handoff: tokens, Loom, and what to skip | Gridwise</title>
+<meta name="description" content="The actual design handoff pack we deliver to engineers — tokens, Loom walkthroughs, Figma — and the deliverables most agencies fluff up that nobody opens." />
+<link rel="canonical" href="https://gridwisedesigns.com/blog/engineering-ready-handoff" />
+<meta name="robots" content="index, follow" />
+<meta name="author" content="Anju, Gridwise" />
+<meta name="keywords" content="design handoff, design tokens, Figma to code, Loom walkthrough, design engineering, Tailwind tokens" />
+<meta property="og:title" content="Engineering-ready handoff: tokens, Loom, and what to skip" />
+<meta property="og:description" content="What engineers actually use from a design handoff — and what to skip." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://gridwisedesigns.com/blog/engineering-ready-handoff" />
+<meta property="og:site_name" content="Gridwise" />
+<meta property="article:published_time" content="2026-04-11" />
+<meta property="article:author" content="Anju" />
+<meta property="article:section" content="Handoff" />
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:title" content="Engineering-ready handoff: tokens, Loom, and what to skip" />
+<meta name="twitter:description" content="What engineers actually use from a design handoff — and what to skip." />
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='6' fill='%23FFD60A'/%3E%3Cpath d='M9 9h6v6H9zM17 9h6v6h-6zM9 17h6v6H9zM17 17h6v6h-6z' fill='%230A0A0A'/%3E%3C/svg%3E" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=Inter:wght@400;500;600;700;800;900&family=Space+Grotesk:wght@500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org", "@type": "Article",
+  "headline": "Engineering-ready handoff: tokens, Loom, and what to skip",
+  "description": "The actual handoff pack we deliver — what engineers use vs. the deliverables nobody opens.",
+  "image": "https://gridwisedesigns.com/photo3.jpeg",
+  "datePublished": "2026-04-11", "dateModified": "2026-04-11",
+  "author": { "@type": "Person", "name": "Anju", "url": "https://gridwisedesigns.com" },
+  "publisher": { "@type": "Organization", "name": "Gridwise", "logo": { "@type": "ImageObject", "url": "https://gridwisedesigns.com/favicon.ico" } },
+  "mainEntityOfPage": { "@type": "WebPage", "@id": "https://gridwisedesigns.com/blog/engineering-ready-handoff" }
+}
+</script>
+
+<script defer src="/_vercel/insights/script.js"></script>
+<script defer src="/_vercel/speed-insights/script.js"></script>
+<script type="text/javascript">
+  (function(c,l,a,r,i,t,y){c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);})(window,document,"clarity","script","wpl30unrqu");
+</script>
+<script src="https://cdn.tailwindcss.com"></script>
+<script>
+  tailwind.config = { theme: { extend: {
+    colors: { ink:{950:'#070707',900:'#0A0A0A',800:'#111111',700:'#161616',600:'#1F1F1F',500:'#2A2A2A'}, bone:{50:'#FAFAFA',100:'#E5E5E5',200:'#A1A1A1',300:'#737373',400:'#525252'}, brand:{yellow:'#FFD60A',yellowHover:'#FFC700'} },
+    fontFamily: { sans:['Inter','system-ui','sans-serif'], display:['"Space Grotesk"','Inter','sans-serif'], serif:['"DM Serif Display"','serif'], mono:['"JetBrains Mono"','ui-monospace','monospace'] }
+  }}};
+</script>
+<style>
+  html { scroll-behavior: smooth; }
+  body { background: #0A0A0A; color: #FAFAFA; font-family: 'Inter', system-ui, sans-serif; -webkit-font-smoothing: antialiased; }
+  .prose-article h2 { font-family: 'Space Grotesk', sans-serif; font-weight: 700; font-size: 1.75rem; line-height: 1.2; margin-top: 2.5rem; margin-bottom: 1rem; color: #FAFAFA; letter-spacing: -0.02em; }
+  .prose-article h3 { font-family: 'Space Grotesk', sans-serif; font-weight: 700; font-size: 1.25rem; line-height: 1.3; margin-top: 2rem; margin-bottom: 0.75rem; color: #FAFAFA; }
+  .prose-article p { font-size: 1.0625rem; line-height: 1.75; color: #E5E5E5; margin-bottom: 1.25rem; }
+  .prose-article ul, .prose-article ol { margin: 1rem 0 1.5rem 1.5rem; color: #E5E5E5; }
+  .prose-article ul li, .prose-article ol li { margin-bottom: 0.5rem; line-height: 1.7; font-size: 1.0625rem; }
+  .prose-article ul li::marker { color: #FFD60A; }
+  .prose-article ol li::marker { color: #FFD60A; font-weight: 600; }
+  .prose-article blockquote { border-left: 3px solid #FFD60A; padding: 0.5rem 0 0.5rem 1.5rem; margin: 1.75rem 0; font-style: italic; color: #FAFAFA; font-size: 1.125rem; }
+  .prose-article strong { color: #FAFAFA; font-weight: 600; }
+  .prose-article a { color: #FFD60A; text-decoration: underline; text-underline-offset: 3px; }
+  .prose-article a:hover { color: #FFC700; }
+  .prose-article code { background: #1F1F1F; padding: 2px 6px; border-radius: 4px; font-size: 0.9em; color: #FFD60A; font-family: 'JetBrains Mono', monospace; }
+  .prose-article hr { border: none; border-top: 1px solid #1F1F1F; margin: 2.5rem 0; }
+</style>
+</head>
+<body class="bg-ink-900 text-bone-50">
+
+<header class="border-b border-ink-600">
+  <div class="max-w-3xl mx-auto px-6 h-16 flex items-center justify-between">
+    <a href="/" class="flex items-center gap-2.5">
+      <span class="w-7 h-7 rounded-md bg-brand-yellow grid grid-cols-2 grid-rows-2 gap-[2.5px] p-1.5">
+        <span class="bg-ink-900 rounded-[2px]"></span><span class="bg-ink-900 rounded-[2px]"></span>
+        <span class="bg-ink-900 rounded-[2px]"></span><span class="bg-ink-900 rounded-[2px]"></span>
+      </span>
+      <span class="font-display font-bold text-base tracking-tight">Gridwise</span>
+    </a>
+    <a href="/blog" class="text-sm text-bone-200 hover:text-brand-yellow flex items-center gap-1.5 transition">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
+      All posts
+    </a>
+  </div>
+</header>
+
+<article class="py-12 md:py-16">
+  <div class="max-w-3xl mx-auto px-6">
+
+    <div class="font-mono text-xs uppercase tracking-[0.2em] text-brand-yellow">Handoff</div>
+    <h1 class="mt-4 font-display text-3xl md:text-5xl font-bold tracking-[-0.02em] leading-[1.1]">
+      Engineering-ready handoff: tokens, Loom, and what to skip.
+    </h1>
+    <div class="mt-6 flex items-center gap-4 text-sm text-bone-300 flex-wrap">
+      <div class="flex items-center gap-2.5">
+        <img src="/photo3.jpeg" alt="Anju" class="w-8 h-8 rounded-full object-cover border border-ink-500" />
+        <span class="text-bone-50 font-semibold">Anju</span>
+      </div>
+      <span class="h-3 w-px bg-ink-500"></span>
+      <span>Apr 11, 2026</span>
+      <span class="h-3 w-px bg-ink-500"></span>
+      <span>4 min read</span>
+    </div>
+
+    <div class="prose-article mt-12">
+      <p>We've watched engineers actually use design handoffs. The painful truth: most of what agencies deliver is fluff. Engineers open the Figma file, find the components, and skip everything else.</p>
+
+      <p>Here's the handoff pack we actually deliver — and what we deliberately leave out.</p>
+
+      <h2>What engineers actually use</h2>
+
+      <h3>1. The Figma file, organized for skimming</h3>
+      <p>Engineers open Figma and search for the component they need. They don't read top-to-bottom. So the file structure matters more than its prettiness:</p>
+      <ul>
+        <li>Pages named by feature, not by sprint week</li>
+        <li>Components in a single library page, not scattered</li>
+        <li>States on the same artboard (default, hover, error, loading, empty)</li>
+        <li>Anchors / sections labeled with the same names engineers use in code</li>
+      </ul>
+      <p>An engineer should find any element in under 10 seconds. If they can't, the file is failing.</p>
+
+      <h3>2. Design tokens, named semantically</h3>
+      <p>Not <code>color-yellow-500</code>. Use <code>brand-accent</code>. Not <code>spacing-16</code>. Use <code>card-padding</code>. Tokens are an API — engineers should be able to use them without thinking about the underlying values.</p>
+      <p>We deliver tokens in two formats:</p>
+      <ul>
+        <li>A Tailwind config snippet (<code>tailwind.config.js</code>) ready to paste in</li>
+        <li>CSS custom properties (<code>:root { --color-brand: #FFD60A; }</code>) for non-Tailwind stacks</li>
+      </ul>
+
+      <h3>3. One Loom per major flow</h3>
+      <p>5-minute videos, no annotations, just narration. "Here's the empty state, here's loading, here's success, here's the edge case when the user has no permission." Engineers watch them once on 2× speed and refer back when stuck.</p>
+      <p>Looms beat written specs for one reason: <strong>intent</strong>. Specs describe what. Looms describe why.</p>
+
+      <h3>4. A 1-page handoff doc</h3>
+      <p>Notion page. Bullet list. Sections:</p>
+      <ul>
+        <li>What ships this sprint (linked to Figma frames)</li>
+        <li>Tokens summary (copy-paste blocks)</li>
+        <li>Known edge cases we didn't design (be honest)</li>
+        <li>Loom links</li>
+        <li>Slack channel for questions</li>
+      </ul>
+      <p>That's it. One page. No PDF, no 30-tab spec doc.</p>
+
+      <hr/>
+
+      <h2>What to skip</h2>
+
+      <p>Things we used to deliver and don't anymore, because nobody opens them:</p>
+
+      <h3>Pixel-perfect annotated specs</h3>
+      <p>Engineers read Figma directly — they don't need a separate PDF with arrows pointing to padding values. Use Figma's built-in inspect panel and call it done.</p>
+
+      <h3>Style guides as standalone PDFs</h3>
+      <p>If your style guide isn't usable code, it's documentation theater. Skip it.</p>
+
+      <h3>Multi-page interaction specs</h3>
+      <p>"When the user hovers, the button transitions over 200ms with ease-out…" — this lives in the Figma prototype or the Tailwind class. Writing it out is busywork.</p>
+
+      <h3>Accessibility audits as separate deliverables</h3>
+      <p>Bake A11y into the design directly. Color contrast, focus states, semantic HTML expectations should be in the component itself, not in a parallel doc. If a button needs <code>aria-label</code>, note it on the Figma frame.</p>
+
+      <blockquote>If a deliverable requires its own meeting to explain, it's the wrong deliverable.</blockquote>
+
+      <h2>The principle</h2>
+      <p>Optimize for the person at the receiving end. Engineers are smart, busy, and they know HTML. Give them organized files, semantic tokens, and short videos. Skip everything else.</p>
+
+      <p>That's the entire handoff philosophy.</p>
+    </div>
+
+    <div class="mt-16 rounded-2xl border border-ink-600 bg-ink-800/50 p-6 md:p-8">
+      <div class="flex items-start gap-4">
+        <img src="/photo3.jpeg" alt="Anju" class="w-14 h-14 rounded-full object-cover border-2 border-ink-500 shrink-0" />
+        <div>
+          <div class="font-semibold text-bone-50">Anju · Founder, Gridwise</div>
+          <p class="mt-2 text-sm text-bone-200 leading-relaxed">Every Gridwise sprint ends with an engineering-ready handoff. Figma + tokens + Looms, no fluff.</p>
+          <a href="/#contact" class="mt-4 inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-brand-yellow text-ink-900 font-semibold text-sm hover:bg-brand-yellowHover transition">
+            Start a sprint
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 5l7 7-7 7"/></svg>
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <div class="mt-14">
+      <div class="font-mono text-xs uppercase tracking-[0.2em] text-bone-300 mb-5">[ Related reading ]</div>
+      <div class="grid md:grid-cols-2 gap-4">
+        <a href="/blog/two-week-sprint-method" class="block rounded-xl border border-ink-600 bg-ink-900 p-5 hover:border-brand-yellow/50 transition group">
+          <div class="text-xs font-mono uppercase tracking-widest text-brand-yellow">Process</div>
+          <h3 class="mt-2 font-display font-bold text-lg group-hover:text-brand-yellow transition">The 2-week sprint method</h3>
+        </a>
+        <a href="/blog/design-systems-for-ai-startups" class="block rounded-xl border border-ink-600 bg-ink-900 p-5 hover:border-brand-yellow/50 transition group">
+          <div class="text-xs font-mono uppercase tracking-widest text-brand-yellow">Design Systems</div>
+          <h3 class="mt-2 font-display font-bold text-lg group-hover:text-brand-yellow transition">Design systems for AI startups: what to build before Series A</h3>
+        </a>
+      </div>
+    </div>
+
+  </div>
+</article>
+
+<footer class="border-t border-ink-600 bg-ink-950 mt-16">
+  <div class="max-w-3xl mx-auto px-6 py-10 flex flex-col md:flex-row justify-between gap-4 text-xs font-mono text-bone-300">
+    <span>© 2026 Gridwise Design. All rights reserved.</span>
+    <a href="/" class="text-bone-200 hover:text-brand-yellow">gridwisedesigns.com</a>
+  </div>
+</footer>
+
+</body>
+</html>

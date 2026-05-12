@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Design systems for AI startups: what to build before Series A | Gridwise</title>
+<meta name="description" content="The minimum token set, component library, and documentation depth that pays off in product velocity for AI startups — and the over-engineering trap to avoid." />
+<link rel="canonical" href="https://gridwisedesigns.com/blog/design-systems-for-ai-startups" />
+<meta name="robots" content="index, follow" />
+<meta name="author" content="Anju, Gridwise" />
+<meta name="keywords" content="design system, AI startup design, design tokens, component library, Figma, Tailwind, pre-Series A design" />
+<meta property="og:title" content="Design systems for AI startups: what to build before Series A" />
+<meta property="og:description" content="The minimum design system that pays off — and the over-engineering trap to avoid." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://gridwisedesigns.com/blog/design-systems-for-ai-startups" />
+<meta property="og:site_name" content="Gridwise" />
+<meta property="article:published_time" content="2026-05-02" />
+<meta property="article:author" content="Anju" />
+<meta property="article:section" content="Design Systems" />
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:title" content="Design systems for AI startups: what to build before Series A" />
+<meta name="twitter:description" content="The minimum design system that pays off — and the over-engineering trap to avoid." />
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='6' fill='%23FFD60A'/%3E%3Cpath d='M9 9h6v6H9zM17 9h6v6h-6zM9 17h6v6H9zM17 17h6v6h-6z' fill='%230A0A0A'/%3E%3C/svg%3E" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=Inter:wght@400;500;600;700;800;900&family=Space+Grotesk:wght@500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org", "@type": "Article",
+  "headline": "Design systems for AI startups: what to build before Series A",
+  "description": "The minimum token set, component library, and documentation depth that pays off in product velocity — and the over-engineering trap.",
+  "image": "https://gridwisedesigns.com/photo3.jpeg",
+  "datePublished": "2026-05-02", "dateModified": "2026-05-02",
+  "author": { "@type": "Person", "name": "Anju", "url": "https://gridwisedesigns.com" },
+  "publisher": { "@type": "Organization", "name": "Gridwise", "logo": { "@type": "ImageObject", "url": "https://gridwisedesigns.com/favicon.ico" } },
+  "mainEntityOfPage": { "@type": "WebPage", "@id": "https://gridwisedesigns.com/blog/design-systems-for-ai-startups" }
+}
+</script>
+
+<script defer src="/_vercel/insights/script.js"></script>
+<script defer src="/_vercel/speed-insights/script.js"></script>
+<script type="text/javascript">
+  (function(c,l,a,r,i,t,y){c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);})(window,document,"clarity","script","wpl30unrqu");
+</script>
+<script src="https://cdn.tailwindcss.com"></script>
+<script>
+  tailwind.config = { theme: { extend: {
+    colors: { ink:{950:'#070707',900:'#0A0A0A',800:'#111111',700:'#161616',600:'#1F1F1F',500:'#2A2A2A'}, bone:{50:'#FAFAFA',100:'#E5E5E5',200:'#A1A1A1',300:'#737373',400:'#525252'}, brand:{yellow:'#FFD60A',yellowHover:'#FFC700'} },
+    fontFamily: { sans:['Inter','system-ui','sans-serif'], display:['"Space Grotesk"','Inter','sans-serif'], serif:['"DM Serif Display"','serif'], mono:['"JetBrains Mono"','ui-monospace','monospace'] }
+  }}};
+</script>
+<style>
+  html { scroll-behavior: smooth; }
+  body { background: #0A0A0A; color: #FAFAFA; font-family: 'Inter', system-ui, sans-serif; -webkit-font-smoothing: antialiased; }
+  .prose-article h2 { font-family: 'Space Grotesk', sans-serif; font-weight: 700; font-size: 1.75rem; line-height: 1.2; margin-top: 2.5rem; margin-bottom: 1rem; color: #FAFAFA; letter-spacing: -0.02em; }
+  .prose-article h3 { font-family: 'Space Grotesk', sans-serif; font-weight: 700; font-size: 1.25rem; line-height: 1.3; margin-top: 2rem; margin-bottom: 0.75rem; color: #FAFAFA; }
+  .prose-article p { font-size: 1.0625rem; line-height: 1.75; color: #E5E5E5; margin-bottom: 1.25rem; }
+  .prose-article ul, .prose-article ol { margin: 1rem 0 1.5rem 1.5rem; color: #E5E5E5; }
+  .prose-article ul li, .prose-article ol li { margin-bottom: 0.5rem; line-height: 1.7; font-size: 1.0625rem; }
+  .prose-article ul li::marker { color: #FFD60A; }
+  .prose-article ol li::marker { color: #FFD60A; font-weight: 600; }
+  .prose-article blockquote { border-left: 3px solid #FFD60A; padding: 0.5rem 0 0.5rem 1.5rem; margin: 1.75rem 0; font-style: italic; color: #FAFAFA; font-size: 1.125rem; }
+  .prose-article strong { color: #FAFAFA; font-weight: 600; }
+  .prose-article a { color: #FFD60A; text-decoration: underline; text-underline-offset: 3px; }
+  .prose-article a:hover { color: #FFC700; }
+  .prose-article code { background: #1F1F1F; padding: 2px 6px; border-radius: 4px; font-size: 0.9em; color: #FFD60A; font-family: 'JetBrains Mono', monospace; }
+  .prose-article hr { border: none; border-top: 1px solid #1F1F1F; margin: 2.5rem 0; }
+</style>
+</head>
+<body class="bg-ink-900 text-bone-50">
+
+<header class="border-b border-ink-600">
+  <div class="max-w-3xl mx-auto px-6 h-16 flex items-center justify-between">
+    <a href="/" class="flex items-center gap-2.5">
+      <span class="w-7 h-7 rounded-md bg-brand-yellow grid grid-cols-2 grid-rows-2 gap-[2.5px] p-1.5">
+        <span class="bg-ink-900 rounded-[2px]"></span><span class="bg-ink-900 rounded-[2px]"></span>
+        <span class="bg-ink-900 rounded-[2px]"></span><span class="bg-ink-900 rounded-[2px]"></span>
+      </span>
+      <span class="font-display font-bold text-base tracking-tight">Gridwise</span>
+    </a>
+    <a href="/blog" class="text-sm text-bone-200 hover:text-brand-yellow flex items-center gap-1.5 transition">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
+      All posts
+    </a>
+  </div>
+</header>
+
+<article class="py-12 md:py-16">
+  <div class="max-w-3xl mx-auto px-6">
+
+    <div class="font-mono text-xs uppercase tracking-[0.2em] text-brand-yellow">Design Systems</div>
+    <h1 class="mt-4 font-display text-3xl md:text-5xl font-bold tracking-[-0.02em] leading-[1.1]">
+      Design systems for AI startups: what to build before Series A.
+    </h1>
+    <div class="mt-6 flex items-center gap-4 text-sm text-bone-300 flex-wrap">
+      <div class="flex items-center gap-2.5">
+        <img src="/photo3.jpeg" alt="Anju" class="w-8 h-8 rounded-full object-cover border border-ink-500" />
+        <span class="text-bone-50 font-semibold">Anju</span>
+      </div>
+      <span class="h-3 w-px bg-ink-500"></span>
+      <span>May 2, 2026</span>
+      <span class="h-3 w-px bg-ink-500"></span>
+      <span>8 min read</span>
+    </div>
+
+    <div class="prose-article mt-12">
+      <p>Every founder we work with eventually asks: "do we need a design system yet?" The honest answer is — yes, but a small one. Most pre-Series-A teams either build none or over-build one. Both kill velocity.</p>
+
+      <p>Here's what a minimum viable design system looks like for an AI startup at seed-to-Series-A stage, and the over-engineering trap to avoid.</p>
+
+      <h2>The minimum viable system</h2>
+
+      <h3>Tokens (1 hour of work)</h3>
+      <ul>
+        <li><strong>5 colors</strong>: background, surface, text-primary, text-muted, brand-accent</li>
+        <li><strong>4 spacing values</strong>: 4px, 8px, 16px, 24px (most UI is built from these four)</li>
+        <li><strong>3 type sizes</strong>: body, label, heading</li>
+        <li><strong>1 border radius</strong>: rounded-md (don't waste time picking three)</li>
+      </ul>
+      <p>That's it. You can extend later. Named semantically (<code>bg-surface</code>, not <code>gray-100</code>) so refactoring color is one variable change.</p>
+
+      <h3>Components (1 sprint of work)</h3>
+      <p>Seven components handle 90% of any SaaS dashboard:</p>
+      <ol>
+        <li>Button (primary, secondary, ghost)</li>
+        <li>Input field (with label + error state)</li>
+        <li>Card / surface container</li>
+        <li>Table row + header</li>
+        <li>Modal / dialog</li>
+        <li>Badge / status pill</li>
+        <li>Navigation item (sidebar + tab)</li>
+      </ol>
+      <p>Build these once in Figma, mirror them in code (Tailwind components or shadcn/ui), document the basic variants. Move on.</p>
+
+      <h3>Documentation (1 page)</h3>
+      <p>A single Notion or README page covering: what tokens mean semantically, when to use each button variant, and the rule "if it's not in the system, ask before adding." That's the entire docs requirement at this stage.</p>
+
+      <hr/>
+
+      <h2>The over-engineering trap</h2>
+      <p>Here's what kills early-stage teams. They look at Stripe, Airbnb, Material — beautifully documented systems with hundreds of components — and try to reach parity. They spend a quarter building a system before shipping a feature.</p>
+
+      <p>Don't do this. At your stage, the actual constraint is:</p>
+      <blockquote>The number of distinct UI surfaces you have isn't enough to justify abstraction.</blockquote>
+
+      <p>If you have 6 screens, you don't need a button library with 14 variants. You need a button. Add variants when the second screen needs a different one. Add components when the third screen needs them.</p>
+
+      <h2>Build it in Tailwind, not custom CSS</h2>
+      <p>For pre-Series-A teams, Tailwind + a shadcn/ui starter pack is the right base. You get:</p>
+      <ul>
+        <li>Tokens that already exist (just override the 5 you care about)</li>
+        <li>Components that already work (Button, Dialog, Input, Table)</li>
+        <li>Accessibility built in</li>
+        <li>Dark mode toggle that's one class change</li>
+        <li>An ecosystem of recipes when you need new patterns</li>
+      </ul>
+      <p>If your engineers fight you on this, ask them how many weeks they want to spend rebuilding what's already free. Usually the answer is zero.</p>
+
+      <h2>When to actually invest</h2>
+      <p>Three signals tell you it's time to put real effort into the system:</p>
+      <ol>
+        <li>You hire a second designer and they can't move fast without it</li>
+        <li>Engineering velocity is bottlenecked on "let me find the existing component"</li>
+        <li>The product has 30+ distinct screens and inconsistency is showing in demos</li>
+      </ol>
+      <p>Before that, the system you have should be small, tight, and treated as scaffolding — not architecture.</p>
+
+      <p>Build small. Ship fast. Refactor when reality demands it.</p>
+    </div>
+
+    <div class="mt-16 rounded-2xl border border-ink-600 bg-ink-800/50 p-6 md:p-8">
+      <div class="flex items-start gap-4">
+        <img src="/photo3.jpeg" alt="Anju" class="w-14 h-14 rounded-full object-cover border-2 border-ink-500 shrink-0" />
+        <div>
+          <div class="font-semibold text-bone-50">Anju · Founder, Gridwise</div>
+          <p class="mt-2 text-sm text-bone-200 leading-relaxed">We build pragmatic design systems for SaaS &amp; AI startups — tokens + components + handoff, in 2-week sprints.</p>
+          <a href="/#contact" class="mt-4 inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-brand-yellow text-ink-900 font-semibold text-sm hover:bg-brand-yellowHover transition">
+            Get a design-system audit
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 5l7 7-7 7"/></svg>
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <div class="mt-14">
+      <div class="font-mono text-xs uppercase tracking-[0.2em] text-bone-300 mb-5">[ Related reading ]</div>
+      <div class="grid md:grid-cols-2 gap-4">
+        <a href="/blog/engineering-ready-handoff" class="block rounded-xl border border-ink-600 bg-ink-900 p-5 hover:border-brand-yellow/50 transition group">
+          <div class="text-xs font-mono uppercase tracking-widest text-brand-yellow">Handoff</div>
+          <h3 class="mt-2 font-display font-bold text-lg group-hover:text-brand-yellow transition">Engineering-ready handoff: tokens, Loom, and what to skip</h3>
+        </a>
+        <a href="/blog/two-week-sprint-method" class="block rounded-xl border border-ink-600 bg-ink-900 p-5 hover:border-brand-yellow/50 transition group">
+          <div class="text-xs font-mono uppercase tracking-widest text-brand-yellow">Process</div>
+          <h3 class="mt-2 font-display font-bold text-lg group-hover:text-brand-yellow transition">The 2-week sprint method</h3>
+        </a>
+      </div>
+    </div>
+
+  </div>
+</article>
+
+<footer class="border-t border-ink-600 bg-ink-950 mt-16">
+  <div class="max-w-3xl mx-auto px-6 py-10 flex flex-col md:flex-row justify-between gap-4 text-xs font-mono text-bone-300">
+    <span>© 2026 Gridwise Design. All rights reserved.</span>
+    <a href="/" class="text-bone-200 hover:text-brand-yellow">gridwisedesigns.com</a>
+  </div>
+</footer>
+
+</body>
+</html>

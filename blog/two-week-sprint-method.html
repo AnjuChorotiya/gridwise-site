@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>The 2-week sprint method: ship product UI in 10 days | Gridwise</title>
+<meta name="description" content="A day-by-day breakdown of how Gridwise structures focused product-design sprints — what we cut, what we ship, and the 3 places agencies waste a month." />
+<link rel="canonical" href="https://gridwisedesigns.com/blog/two-week-sprint-method" />
+<meta name="robots" content="index, follow" />
+<meta name="author" content="Anju, Gridwise" />
+<meta name="keywords" content="design sprint, product design sprint, 2-week sprint, design process, SaaS design, design agency methodology" />
+<meta property="og:title" content="The 2-week sprint method: ship product UI in 10 days" />
+<meta property="og:description" content="A day-by-day breakdown of focused product-design sprints — what we cut, what we ship." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://gridwisedesigns.com/blog/two-week-sprint-method" />
+<meta property="og:site_name" content="Gridwise" />
+<meta property="article:published_time" content="2026-05-09" />
+<meta property="article:author" content="Anju" />
+<meta property="article:section" content="Process" />
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:title" content="The 2-week sprint method: ship product UI in 10 days" />
+<meta name="twitter:description" content="A day-by-day breakdown of focused product-design sprints — what we cut, what we ship." />
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='6' fill='%23FFD60A'/%3E%3Cpath d='M9 9h6v6H9zM17 9h6v6h-6zM9 17h6v6H9zM17 17h6v6h-6z' fill='%230A0A0A'/%3E%3C/svg%3E" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=Inter:wght@400;500;600;700;800;900&family=Space+Grotesk:wght@500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org", "@type": "Article",
+  "headline": "The 2-week sprint method: how we ship product UI in 10 working days",
+  "description": "A day-by-day breakdown of how Gridwise structures focused product-design sprints.",
+  "image": "https://gridwisedesigns.com/photo3.jpeg",
+  "datePublished": "2026-05-09", "dateModified": "2026-05-09",
+  "author": { "@type": "Person", "name": "Anju", "url": "https://gridwisedesigns.com" },
+  "publisher": { "@type": "Organization", "name": "Gridwise", "logo": { "@type": "ImageObject", "url": "https://gridwisedesigns.com/favicon.ico" } },
+  "mainEntityOfPage": { "@type": "WebPage", "@id": "https://gridwisedesigns.com/blog/two-week-sprint-method" }
+}
+</script>
+
+<script defer src="/_vercel/insights/script.js"></script>
+<script defer src="/_vercel/speed-insights/script.js"></script>
+<script type="text/javascript">
+  (function(c,l,a,r,i,t,y){c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);})(window,document,"clarity","script","wpl30unrqu");
+</script>
+<script src="https://cdn.tailwindcss.com"></script>
+<script>
+  tailwind.config = { theme: { extend: {
+    colors: { ink:{950:'#070707',900:'#0A0A0A',800:'#111111',700:'#161616',600:'#1F1F1F',500:'#2A2A2A'}, bone:{50:'#FAFAFA',100:'#E5E5E5',200:'#A1A1A1',300:'#737373',400:'#525252'}, brand:{yellow:'#FFD60A',yellowHover:'#FFC700'} },
+    fontFamily: { sans:['Inter','system-ui','sans-serif'], display:['"Space Grotesk"','Inter','sans-serif'], serif:['"DM Serif Display"','serif'], mono:['"JetBrains Mono"','ui-monospace','monospace'] }
+  }}};
+</script>
+<style>
+  html { scroll-behavior: smooth; }
+  body { background: #0A0A0A; color: #FAFAFA; font-family: 'Inter', system-ui, sans-serif; -webkit-font-smoothing: antialiased; }
+  .prose-article h2 { font-family: 'Space Grotesk', sans-serif; font-weight: 700; font-size: 1.75rem; line-height: 1.2; margin-top: 2.5rem; margin-bottom: 1rem; color: #FAFAFA; letter-spacing: -0.02em; }
+  .prose-article h3 { font-family: 'Space Grotesk', sans-serif; font-weight: 700; font-size: 1.25rem; line-height: 1.3; margin-top: 2rem; margin-bottom: 0.75rem; color: #FAFAFA; }
+  .prose-article p { font-size: 1.0625rem; line-height: 1.75; color: #E5E5E5; margin-bottom: 1.25rem; }
+  .prose-article ul, .prose-article ol { margin: 1rem 0 1.5rem 1.5rem; color: #E5E5E5; }
+  .prose-article ul li, .prose-article ol li { margin-bottom: 0.5rem; line-height: 1.7; font-size: 1.0625rem; }
+  .prose-article ul li::marker { color: #FFD60A; }
+  .prose-article ol li::marker { color: #FFD60A; font-weight: 600; }
+  .prose-article blockquote { border-left: 3px solid #FFD60A; padding: 0.5rem 0 0.5rem 1.5rem; margin: 1.75rem 0; font-style: italic; color: #FAFAFA; font-size: 1.125rem; }
+  .prose-article strong { color: #FAFAFA; font-weight: 600; }
+  .prose-article a { color: #FFD60A; text-decoration: underline; text-underline-offset: 3px; }
+  .prose-article a:hover { color: #FFC700; }
+  .prose-article hr { border: none; border-top: 1px solid #1F1F1F; margin: 2.5rem 0; }
+</style>
+</head>
+<body class="bg-ink-900 text-bone-50">
+
+<header class="border-b border-ink-600">
+  <div class="max-w-3xl mx-auto px-6 h-16 flex items-center justify-between">
+    <a href="/" class="flex items-center gap-2.5">
+      <span class="w-7 h-7 rounded-md bg-brand-yellow grid grid-cols-2 grid-rows-2 gap-[2.5px] p-1.5">
+        <span class="bg-ink-900 rounded-[2px]"></span><span class="bg-ink-900 rounded-[2px]"></span>
+        <span class="bg-ink-900 rounded-[2px]"></span><span class="bg-ink-900 rounded-[2px]"></span>
+      </span>
+      <span class="font-display font-bold text-base tracking-tight">Gridwise</span>
+    </a>
+    <a href="/blog" class="text-sm text-bone-200 hover:text-brand-yellow flex items-center gap-1.5 transition">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
+      All posts
+    </a>
+  </div>
+</header>
+
+<article class="py-12 md:py-16">
+  <div class="max-w-3xl mx-auto px-6">
+
+    <div class="font-mono text-xs uppercase tracking-[0.2em] text-brand-yellow">Process</div>
+    <h1 class="mt-4 font-display text-3xl md:text-5xl font-bold tracking-[-0.02em] leading-[1.1]">
+      The 2-week sprint method: how we ship product UI in 10 working days.
+    </h1>
+    <div class="mt-6 flex items-center gap-4 text-sm text-bone-300 flex-wrap">
+      <div class="flex items-center gap-2.5">
+        <img src="/photo3.jpeg" alt="Anju" class="w-8 h-8 rounded-full object-cover border border-ink-500" />
+        <span class="text-bone-50 font-semibold">Anju</span>
+      </div>
+      <span class="h-3 w-px bg-ink-500"></span>
+      <span>May 9, 2026</span>
+      <span class="h-3 w-px bg-ink-500"></span>
+      <span>4 min read</span>
+    </div>
+
+    <div class="prose-article mt-12">
+      <p>Most design agencies sell a 12-week engagement that produces three weeks of actual design work. The other nine are workshops, executive reviews, and "alignment sessions" that exist to bill hours.</p>
+
+      <p>Our 2-week sprint cuts that to ten working days. Here's the day-by-day.</p>
+
+      <h2>Day 1 — Audit</h2>
+      <p>We review your current product live. By end of day, you get a written audit: top three UI gaps, what's worth fixing this sprint, what isn't. No kickoff workshop, no "discovery phase."</p>
+
+      <h2>Day 2 — Define</h2>
+      <p>One Notion doc. One Figma file. One Slack channel. Scope locked: what ships in 14 days, what doesn't. Founders sign off async.</p>
+
+      <h2>Days 3–8 — Design</h2>
+      <p>Heads-down design work. Daily Figma updates in your channel. Async Loom walkthroughs each evening explaining what changed and why. No scheduled reviews unless a decision needs you.</p>
+      <p>This is where most agencies waste time on meetings. We waste it on iteration.</p>
+
+      <h2>Days 9–11 — System</h2>
+      <p>The work doesn't ship as flat screens. It ships as a system:</p>
+      <ul>
+        <li>Design tokens (color, spacing, typography) named semantically</li>
+        <li>Component library extracted in Figma</li>
+        <li>Engineering docs for handoff</li>
+        <li>Dark/light variants where it matters</li>
+      </ul>
+
+      <h2>Days 12–14 — Handoff</h2>
+      <p>Engineering-ready Figma file. One Loom walkthrough per major flow. A handoff doc your engineers actually use (we'll write a separate post about what's <em>in</em> ours).</p>
+      <p>Sprint ends. Most clients roll into a Partner retainer at this point — but no pressure tactics. The decision happens during week 2, not before.</p>
+
+      <hr/>
+
+      <h2>What we cut</h2>
+      <p>To make the timeline work, we don't do:</p>
+      <ul>
+        <li><strong>Kickoff workshops.</strong> A Slack message and Notion doc are faster than a Zoom.</li>
+        <li><strong>Stakeholder review meetings.</strong> Async Loom replaces 80% of these.</li>
+        <li><strong>Brand exploration phases.</strong> We design product UI. You already have a brand.</li>
+        <li><strong>Pixel-perfect annotated specs.</strong> Engineers read Figma directly, not PDFs.</li>
+      </ul>
+
+      <blockquote>The constraint isn't time. It's the meetings we refuse to have.</blockquote>
+
+      <h2>Why it works</h2>
+      <p>Two reasons.</p>
+      <p>First, our team is senior-only. There's no junior designer learning on your account, no design director who reviews and rewrites. The person doing the work is the person making the calls.</p>
+      <p>Second, we treat every sprint as a closed system. We don't extend, expand, or re-scope. If we underestimate, we eat the cost. That alignment forces us to estimate honestly and ship.</p>
+
+      <p>If you're tired of agency drag, we should probably talk.</p>
+    </div>
+
+    <div class="mt-16 rounded-2xl border border-ink-600 bg-ink-800/50 p-6 md:p-8">
+      <div class="flex items-start gap-4">
+        <img src="/photo3.jpeg" alt="Anju" class="w-14 h-14 rounded-full object-cover border-2 border-ink-500 shrink-0" />
+        <div>
+          <div class="font-semibold text-bone-50">Anju · Founder, Gridwise</div>
+          <p class="mt-2 text-sm text-bone-200 leading-relaxed">We design product UI and design systems for SaaS &amp; AI startups, shipped in 2-week sprints.</p>
+          <a href="/#contact" class="mt-4 inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-brand-yellow text-ink-900 font-semibold text-sm hover:bg-brand-yellowHover transition">
+            Start a sprint
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 5l7 7-7 7"/></svg>
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <div class="mt-14">
+      <div class="font-mono text-xs uppercase tracking-[0.2em] text-bone-300 mb-5">[ Related reading ]</div>
+      <div class="grid md:grid-cols-2 gap-4">
+        <a href="/blog/engineering-ready-handoff" class="block rounded-xl border border-ink-600 bg-ink-900 p-5 hover:border-brand-yellow/50 transition group">
+          <div class="text-xs font-mono uppercase tracking-widest text-brand-yellow">Handoff</div>
+          <h3 class="mt-2 font-display font-bold text-lg group-hover:text-brand-yellow transition">Engineering-ready handoff: tokens, Loom, and what to skip</h3>
+        </a>
+        <a href="/blog/design-systems-for-ai-startups" class="block rounded-xl border border-ink-600 bg-ink-900 p-5 hover:border-brand-yellow/50 transition group">
+          <div class="text-xs font-mono uppercase tracking-widest text-brand-yellow">Design Systems</div>
+          <h3 class="mt-2 font-display font-bold text-lg group-hover:text-brand-yellow transition">Design systems for AI startups: what to build before Series A</h3>
+        </a>
+      </div>
+    </div>
+
+  </div>
+</article>
+
+<footer class="border-t border-ink-600 bg-ink-950 mt-16">
+  <div class="max-w-3xl mx-auto px-6 py-10 flex flex-col md:flex-row justify-between gap-4 text-xs font-mono text-bone-300">
+    <span>© 2026 Gridwise Design. All rights reserved.</span>
+    <a href="/" class="text-bone-200 hover:text-brand-yellow">gridwisedesigns.com</a>
+  </div>
+</footer>
+
+</body>
+</html>

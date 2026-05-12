@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Onboarding for AI dev tools: from 14 steps to 3 | Gridwise</title>
+<meta name="description" content="A teardown of an AI dev tool onboarding rebuild — including the cuts that scared the founder, and why time-to-first-value dropped from 22 min to under 4." />
+<link rel="canonical" href="https://gridwisedesigns.com/blog/onboarding-for-ai-dev-tools" />
+<meta name="robots" content="index, follow" />
+<meta name="author" content="Anju, Gridwise" />
+<meta name="keywords" content="onboarding UX, AI dev tool onboarding, activation, time to first value, developer tools UX, signup flow" />
+<meta property="og:title" content="Onboarding for AI dev tools: from 14 steps to 3" />
+<meta property="og:description" content="A teardown of an AI dev tool onboarding rebuild — and why time-to-first-value dropped 22 min to under 4." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://gridwisedesigns.com/blog/onboarding-for-ai-dev-tools" />
+<meta property="og:site_name" content="Gridwise" />
+<meta property="article:published_time" content="2026-04-25" />
+<meta property="article:author" content="Anju" />
+<meta property="article:section" content="Activation UX" />
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:title" content="Onboarding for AI dev tools: from 14 steps to 3" />
+<meta name="twitter:description" content="Time-to-first-value 22 min → 4 min. A teardown of the cuts that scared the founder." />
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='6' fill='%23FFD60A'/%3E%3Cpath d='M9 9h6v6H9zM17 9h6v6h-6zM9 17h6v6H9zM17 17h6v6h-6z' fill='%230A0A0A'/%3E%3C/svg%3E" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=Inter:wght@400;500;600;700;800;900&family=Space+Grotesk:wght@500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org", "@type": "Article",
+  "headline": "Onboarding for AI dev tools: from 14 steps to 3",
+  "description": "A teardown of an AI dev tool onboarding rebuild — and why time-to-first-value dropped from 22 min to under 4.",
+  "image": "https://gridwisedesigns.com/photo3.jpeg",
+  "datePublished": "2026-04-25", "dateModified": "2026-04-25",
+  "author": { "@type": "Person", "name": "Anju", "url": "https://gridwisedesigns.com" },
+  "publisher": { "@type": "Organization", "name": "Gridwise", "logo": { "@type": "ImageObject", "url": "https://gridwisedesigns.com/favicon.ico" } },
+  "mainEntityOfPage": { "@type": "WebPage", "@id": "https://gridwisedesigns.com/blog/onboarding-for-ai-dev-tools" }
+}
+</script>
+
+<script defer src="/_vercel/insights/script.js"></script>
+<script defer src="/_vercel/speed-insights/script.js"></script>
+<script type="text/javascript">
+  (function(c,l,a,r,i,t,y){c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);})(window,document,"clarity","script","wpl30unrqu");
+</script>
+<script src="https://cdn.tailwindcss.com"></script>
+<script>
+  tailwind.config = { theme: { extend: {
+    colors: { ink:{950:'#070707',900:'#0A0A0A',800:'#111111',700:'#161616',600:'#1F1F1F',500:'#2A2A2A'}, bone:{50:'#FAFAFA',100:'#E5E5E5',200:'#A1A1A1',300:'#737373',400:'#525252'}, brand:{yellow:'#FFD60A',yellowHover:'#FFC700'} },
+    fontFamily: { sans:['Inter','system-ui','sans-serif'], display:['"Space Grotesk"','Inter','sans-serif'], serif:['"DM Serif Display"','serif'], mono:['"JetBrains Mono"','ui-monospace','monospace'] }
+  }}};
+</script>
+<style>
+  html { scroll-behavior: smooth; }
+  body { background: #0A0A0A; color: #FAFAFA; font-family: 'Inter', system-ui, sans-serif; -webkit-font-smoothing: antialiased; }
+  .prose-article h2 { font-family: 'Space Grotesk', sans-serif; font-weight: 700; font-size: 1.75rem; line-height: 1.2; margin-top: 2.5rem; margin-bottom: 1rem; color: #FAFAFA; letter-spacing: -0.02em; }
+  .prose-article h3 { font-family: 'Space Grotesk', sans-serif; font-weight: 700; font-size: 1.25rem; line-height: 1.3; margin-top: 2rem; margin-bottom: 0.75rem; color: #FAFAFA; }
+  .prose-article p { font-size: 1.0625rem; line-height: 1.75; color: #E5E5E5; margin-bottom: 1.25rem; }
+  .prose-article ul, .prose-article ol { margin: 1rem 0 1.5rem 1.5rem; color: #E5E5E5; }
+  .prose-article ul li, .prose-article ol li { margin-bottom: 0.5rem; line-height: 1.7; font-size: 1.0625rem; }
+  .prose-article ul li::marker { color: #FFD60A; }
+  .prose-article ol li::marker { color: #FFD60A; font-weight: 600; }
+  .prose-article blockquote { border-left: 3px solid #FFD60A; padding: 0.5rem 0 0.5rem 1.5rem; margin: 1.75rem 0; font-style: italic; color: #FAFAFA; font-size: 1.125rem; }
+  .prose-article strong { color: #FAFAFA; font-weight: 600; }
+  .prose-article a { color: #FFD60A; text-decoration: underline; text-underline-offset: 3px; }
+  .prose-article a:hover { color: #FFC700; }
+  .prose-article code { background: #1F1F1F; padding: 2px 6px; border-radius: 4px; font-size: 0.9em; color: #FFD60A; font-family: 'JetBrains Mono', monospace; }
+  .prose-article hr { border: none; border-top: 1px solid #1F1F1F; margin: 2.5rem 0; }
+</style>
+</head>
+<body class="bg-ink-900 text-bone-50">
+
+<header class="border-b border-ink-600">
+  <div class="max-w-3xl mx-auto px-6 h-16 flex items-center justify-between">
+    <a href="/" class="flex items-center gap-2.5">
+      <span class="w-7 h-7 rounded-md bg-brand-yellow grid grid-cols-2 grid-rows-2 gap-[2.5px] p-1.5">
+        <span class="bg-ink-900 rounded-[2px]"></span><span class="bg-ink-900 rounded-[2px]"></span>
+        <span class="bg-ink-900 rounded-[2px]"></span><span class="bg-ink-900 rounded-[2px]"></span>
+      </span>
+      <span class="font-display font-bold text-base tracking-tight">Gridwise</span>
+    </a>
+    <a href="/blog" class="text-sm text-bone-200 hover:text-brand-yellow flex items-center gap-1.5 transition">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
+      All posts
+    </a>
+  </div>
+</header>
+
+<article class="py-12 md:py-16">
+  <div class="max-w-3xl mx-auto px-6">
+
+    <div class="font-mono text-xs uppercase tracking-[0.2em] text-brand-yellow">Activation UX</div>
+    <h1 class="mt-4 font-display text-3xl md:text-5xl font-bold tracking-[-0.02em] leading-[1.1]">
+      Onboarding for AI dev tools: from 14 steps to 3.
+    </h1>
+    <div class="mt-6 flex items-center gap-4 text-sm text-bone-300 flex-wrap">
+      <div class="flex items-center gap-2.5">
+        <img src="/photo3.jpeg" alt="Anju" class="w-8 h-8 rounded-full object-cover border border-ink-500" />
+        <span class="text-bone-50 font-semibold">Anju</span>
+      </div>
+      <span class="h-3 w-px bg-ink-500"></span>
+      <span>Apr 25, 2026</span>
+      <span class="h-3 w-px bg-ink-500"></span>
+      <span>5 min read</span>
+    </div>
+
+    <div class="prose-article mt-12">
+      <p>A recent client — an AI dev tool at pre-seed — came to us with a brutal funnel: 70% of users signed up but never made it to first value. Founders kept saying "developers will figure it out." They didn't.</p>
+
+      <p>Here's how we cut their onboarding from 14 steps to 3, and what happened.</p>
+
+      <h2>The original 14 steps</h2>
+      <ol>
+        <li>Sign up with email</li>
+        <li>Verify email link</li>
+        <li>Create organization</li>
+        <li>Invite teammates (skippable, but it asked)</li>
+        <li>Choose plan</li>
+        <li>Add billing details (yes, on first run)</li>
+        <li>Generate API key</li>
+        <li>Install CLI</li>
+        <li>Authenticate CLI with API key</li>
+        <li>Initialize a project</li>
+        <li>Configure environment</li>
+        <li>Connect data source</li>
+        <li>Run hello-world example</li>
+        <li>Land on dashboard (empty)</li>
+      </ol>
+
+      <p>Average time to step 14: <strong>22 minutes</strong>. Most people quit at step 6 (billing on first run).</p>
+
+      <h2>The cuts</h2>
+      <p>We collapsed it to three:</p>
+      <ol>
+        <li><strong>Sign up</strong> (email + password, no verification, no org)</li>
+        <li><strong>Paste your API key into a code snippet on the page</strong> — which runs hello-world right there in a hosted sandbox</li>
+        <li><strong>See the first useful response</strong> — already styled, already explained</li>
+      </ol>
+
+      <p>That's it. Total time: under 4 minutes.</p>
+
+      <h2>What we cut and why</h2>
+
+      <h3>Email verification — gone</h3>
+      <p>We deferred verification to "first time you invite a teammate" or "first export." A new user doesn't need a verified email to see the product working. Adding friction to the most fragile moment of their journey kills activation.</p>
+
+      <h3>Org creation — gone</h3>
+      <p>Single-player mode by default. The org concept appears when they invite a second person. Most users will be solo for weeks.</p>
+
+      <h3>Billing on first run — gone</h3>
+      <p>This was the founder's hardest cut. He worried about freeloaders. We pointed out: you can't have freeloaders if no one activates. Free tier with a rate limit, billing prompt when they hit it.</p>
+
+      <h3>CLI install — deferred</h3>
+      <p>The hosted sandbox runs the hello-world in browser. The user sees value before installing anything. CLI install becomes a follow-up email ("ready to use locally?") triggered by their first hosted run.</p>
+
+      <blockquote>The fastest path to "wow" is the only thing that matters in the first session. Everything else is friction.</blockquote>
+
+      <h2>The pattern</h2>
+
+      <p>Most AI dev tool onboardings are built like enterprise SaaS — with the assumption that the user is a buyer who needs to make a purchasing decision. They're not. They're an engineer trying to figure out in 2 minutes whether your product is worth their time.</p>
+
+      <p>Design for that 2-minute decision. Push everything else — billing, org setup, configuration, teammate invites — to the moment they actually need it.</p>
+
+      <h2>Results</h2>
+      <ul>
+        <li>Time to first value: <strong>22 min → under 4 min</strong></li>
+        <li>Activation rate (reached step "first response"): <strong>30% → 73%</strong></li>
+        <li>Day-1 retention: <strong>+43%</strong></li>
+        <li>Founder slept better</li>
+      </ul>
+
+      <p>If your activation is stuck, count your steps. Then cut half of them.</p>
+    </div>
+
+    <div class="mt-16 rounded-2xl border border-ink-600 bg-ink-800/50 p-6 md:p-8">
+      <div class="flex items-start gap-4">
+        <img src="/photo3.jpeg" alt="Anju" class="w-14 h-14 rounded-full object-cover border-2 border-ink-500 shrink-0" />
+        <div>
+          <div class="font-semibold text-bone-50">Anju · Founder, Gridwise</div>
+          <p class="mt-2 text-sm text-bone-200 leading-relaxed">We redesign onboarding flows for SaaS &amp; AI startups — typically in a single 2-week sprint.</p>
+          <a href="/#contact" class="mt-4 inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-brand-yellow text-ink-900 font-semibold text-sm hover:bg-brand-yellowHover transition">
+            Audit my onboarding
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 5l7 7-7 7"/></svg>
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <div class="mt-14">
+      <div class="font-mono text-xs uppercase tracking-[0.2em] text-bone-300 mb-5">[ Related reading ]</div>
+      <div class="grid md:grid-cols-2 gap-4">
+        <a href="/blog/why-your-ai-dashboard-isnt-converting" class="block rounded-xl border border-ink-600 bg-ink-900 p-5 hover:border-brand-yellow/50 transition group">
+          <div class="text-xs font-mono uppercase tracking-widest text-brand-yellow">Dashboard UX</div>
+          <h3 class="mt-2 font-display font-bold text-lg group-hover:text-brand-yellow transition">Why your AI dashboard isn't converting — 5 fixes</h3>
+        </a>
+        <a href="/blog/designing-operator-consoles" class="block rounded-xl border border-ink-600 bg-ink-900 p-5 hover:border-brand-yellow/50 transition group">
+          <div class="text-xs font-mono uppercase tracking-widest text-brand-yellow">AI UX</div>
+          <h3 class="mt-2 font-display font-bold text-lg group-hover:text-brand-yellow transition">Designing operator consoles for autonomous agents</h3>
+        </a>
+      </div>
+    </div>
+
+  </div>
+</article>
+
+<footer class="border-t border-ink-600 bg-ink-950 mt-16">
+  <div class="max-w-3xl mx-auto px-6 py-10 flex flex-col md:flex-row justify-between gap-4 text-xs font-mono text-bone-300">
+    <span>© 2026 Gridwise Design. All rights reserved.</span>
+    <a href="/" class="text-bone-200 hover:text-brand-yellow">gridwisedesigns.com</a>
+  </div>
+</footer>
+
+</body>
+</html>
