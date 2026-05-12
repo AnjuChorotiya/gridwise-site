@@ -309,5 +309,111 @@
   </div>
 </footer>
 
+
+<!-- BOOKING MODAL -->
+<div id="booking-modal" class="fixed inset-0 z-[60] hidden items-center justify-center p-4 bg-ink-950/80 backdrop-blur-sm" role="dialog" aria-modal="true">
+  <div class="relative w-full max-w-md rounded-2xl border border-ink-600 bg-ink-900 p-7 md:p-8 shadow-2xl">
+    <button id="booking-close" aria-label="Close" class="absolute top-4 right-4 w-8 h-8 rounded-full grid place-items-center text-bone-300 hover:text-bone-50 hover:bg-ink-700 transition">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+    </button>
+
+    <div id="booking-form-state">
+      <div class="font-mono text-xs uppercase tracking-[0.2em] text-brand-yellow">// Book a call</div>
+      <h2 class="mt-3 font-display text-2xl md:text-3xl font-bold tracking-tight leading-tight">Tell us a bit about your product.</h2>
+      <p class="mt-3 text-sm text-bone-200">We'll get back within one business day. No calendar required.</p>
+
+      <form id="booking-form" class="mt-6 space-y-4">
+        <div>
+          <label for="bf-name" class="block text-[10px] font-mono uppercase tracking-widest text-bone-300 mb-1.5">Name</label>
+          <input type="text" id="bf-name" required class="w-full px-4 py-2.5 rounded-lg bg-ink-800 border border-ink-500 text-sm text-bone-50 placeholder-bone-400 focus:border-brand-yellow focus:outline-none transition" placeholder="Anju" />
+        </div>
+        <div>
+          <label for="bf-email" class="block text-[10px] font-mono uppercase tracking-widest text-bone-300 mb-1.5">Email</label>
+          <input type="email" id="bf-email" required class="w-full px-4 py-2.5 rounded-lg bg-ink-800 border border-ink-500 text-sm text-bone-50 placeholder-bone-400 focus:border-brand-yellow focus:outline-none transition" placeholder="you@startup.com" />
+        </div>
+        <div>
+          <label for="bf-company" class="block text-[10px] font-mono uppercase tracking-widest text-bone-300 mb-1.5">Company <span class="text-bone-400 normal-case tracking-normal">(optional)</span></label>
+          <input type="text" id="bf-company" class="w-full px-4 py-2.5 rounded-lg bg-ink-800 border border-ink-500 text-sm text-bone-50 placeholder-bone-400 focus:border-brand-yellow focus:outline-none transition" placeholder="Your product or company" />
+        </div>
+        <div>
+          <label for="bf-message" class="block text-[10px] font-mono uppercase tracking-widest text-bone-300 mb-1.5">What do you need help with?</label>
+          <textarea id="bf-message" rows="3" required class="w-full px-4 py-2.5 rounded-lg bg-ink-800 border border-ink-500 text-sm text-bone-50 placeholder-bone-400 focus:border-brand-yellow focus:outline-none transition resize-none" placeholder="A few lines about your product and where you're stuck."></textarea>
+        </div>
+        <button type="submit" class="w-full px-6 py-3 rounded-full bg-brand-yellow text-ink-900 font-semibold hover:bg-brand-yellowHover transition flex items-center justify-center gap-2">
+          Send
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 5l7 7-7 7"/></svg>
+        </button>
+      </form>
+    </div>
+
+    <div id="booking-success-state" class="hidden text-center py-4">
+      <div class="w-14 h-14 rounded-full bg-brand-yellow/20 border border-brand-yellow/40 grid place-items-center mx-auto">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#FFD60A" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+      </div>
+      <h2 class="mt-5 font-display text-2xl font-bold tracking-tight">Thanks — we'll be in touch.</h2>
+      <p class="mt-3 text-sm text-bone-200">We typically reply within one business day.<br/>If it's urgent, email <a href="mailto:gridwisedesigns@gmail.com" class="text-brand-yellow hover:underline">gridwisedesigns@gmail.com</a> directly.</p>
+      <button id="booking-success-close" class="mt-6 px-5 py-2.5 rounded-full border border-ink-500 text-bone-50 hover:border-brand-yellow hover:text-brand-yellow transition text-sm">Close</button>
+    </div>
+  </div>
+</div>
+
+<script>
+  (function() {
+    var modal = document.getElementById('booking-modal');
+    if (!modal) return;
+    var formState = document.getElementById('booking-form-state');
+    var successState = document.getElementById('booking-success-state');
+
+    function showModal() {
+      modal.classList.remove('hidden');
+      modal.classList.add('flex');
+      document.body.style.overflow = 'hidden';
+      formState.classList.remove('hidden');
+      successState.classList.add('hidden');
+      setTimeout(function() {
+        var first = document.getElementById('bf-name');
+        if (first) first.focus();
+      }, 100);
+    }
+    function hideModal() {
+      modal.classList.add('hidden');
+      modal.classList.remove('flex');
+      document.body.style.overflow = '';
+    }
+
+    document.querySelectorAll('a[href$="#contact"]').forEach(function(a) {
+      a.addEventListener('click', function(e) {
+        e.preventDefault();
+        showModal();
+      });
+    });
+
+    document.getElementById('booking-close').addEventListener('click', hideModal);
+    document.getElementById('booking-success-close').addEventListener('click', hideModal);
+    modal.addEventListener('click', function(e) {
+      if (e.target === modal) hideModal();
+    });
+    document.addEventListener('keydown', function(e) {
+      if (e.key === 'Escape' && !modal.classList.contains('hidden')) hideModal();
+    });
+
+    document.getElementById('booking-form').addEventListener('submit', function(e) {
+      e.preventDefault();
+      var name = document.getElementById('bf-name').value.trim();
+      var email = document.getElementById('bf-email').value.trim();
+      var company = document.getElementById('bf-company').value.trim();
+      var message = document.getElementById('bf-message').value.trim();
+
+      var subject = encodeURIComponent('New inquiry: ' + name + (company ? ' (' + company + ')' : ''));
+      var body = encodeURIComponent('Name: ' + name + '\nEmail: ' + email + '\nCompany: ' + (company || 'N/A') + '\n\nMessage:\n' + message);
+
+      var mailUrl = 'mailto:gridwisedesigns@gmail.com?subject=' + subject + '&body=' + body;
+      window.location.href = mailUrl;
+
+      formState.classList.add('hidden');
+      successState.classList.remove('hidden');
+    });
+  })();
+</script>
 </body>
 </html>
